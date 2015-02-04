@@ -11,9 +11,9 @@ module.exports = function (app, express) {
 
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
-  app.use(bodyParser.json({type: 'application/*+json'}));
+  // app.use(bodyParser.json({type: 'application/*+json'}));
+  app.use(bodyParser.json());
   app.use(express.static(__dirname + '/../client'));
-
 
   app.use('/api/users', userRouter); // use user router for all user request
   app.use('/api/groups', groupRouter); // use group router for group request
