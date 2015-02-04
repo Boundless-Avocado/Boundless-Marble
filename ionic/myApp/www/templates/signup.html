@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Sign Up!</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeSignUp()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doSignUp()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Phone Number</span>
+          <input type="tel" ng-model="signUpData.phonenumber" placeholder="ex. 9175202524" maxlength="10">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="signUpData.name" placeholder="how friends will see your messages" maxlength="20">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">E-mail</span>
+          <input type="email" ng-model="signUpData.email" placeholder="for optional notificaitons" maxlength="50">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="signUpData.password" placeholder="between 6 and 10 characters" minlength="6" maxlength="10">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Sign Up!</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

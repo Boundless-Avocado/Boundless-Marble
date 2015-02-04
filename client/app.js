@@ -99,9 +99,7 @@ angular.module('boundless', [
 })
 
 .run(function ($rootScope, $location) {
-	console.log('run');
 	$rootScope.$on('$routeChangeStart', function (evt, next, current) {
 	  $location.path('/');
-	  console.log('run');
 	});
 });

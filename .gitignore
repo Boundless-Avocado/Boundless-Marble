@@ -36,3 +36,6 @@ client/lib
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# ionic files
+ionic/www.zip
