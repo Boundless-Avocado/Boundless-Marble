@@ -1,21 +1,12 @@
 language: node_js
 node_js:
-<<<<<<< HEAD
-- '0.8'
-- '0.10'
-0haNuOwM/A0ehyyOSTqNL235l8+YnjzsBwIgLrb7:
-  secure: a01wqd8GXfKEFXfHSXDhGRxRWhUfpva64l4siufaijFRNsCPi+0eC77kGhDLoIXWPzxadbO5h4JxkhucJijATtQt/UHyZuwOCz93gUaGN/izGL233GDqbFwadf9Vlvy9+UIHkWzkGViRiM8bKh9ed6/pyIDzEXvkjpb1DmhriDE=
-secret-access-key=0haNuOwM/A0ehyyOSTqNL235l8+YnjzsBwIgLrb7:
-  secure: Xbz8IMBtQsN3quU37i6ekpkMhCp1wLr93uaAxFD+LSHVHHA12qO7RM52gbxALvw1FhF534UwKOx5l9pwE9ertPVSf+LhUOX/9EGF8E3IY9fxGEI5nc7r0Ww4kTkpoBegc22u2vxaOChQEuypoVYmqkWZqThnSxt1aFdDiqptdwk=
-=======
 - '0.10'
 deploy:
   provider: elasticbeanstalk
   region: us-west-1
-  app: am
-  env: am-dev
-  bucket_name: elasticbeanstalk-us-west-1-704220101114
-  access_key_id: AKIAI6WO274TANRDLGIQ
+  app: am-guac
+  env: amGuac-dev
+  bucket_name: am-guac
+  access_key_id: AKIAI32MQWTO3XQVB5WA
   secret-access-key:
-    secure: CDMFVIMXlSnWL22O1qLoNnEDibfT676wGljQuwedv9GW+iltjZNEPIH38r4GVpx0PYBXSoDMnXNFVq/Q26Ry6S47FibF2aKT3iWLso8x3/arD6BKhMHazSPiJoKuVoeIa1XwfpMNEclue7izTCUJIviA9/tlLEDGYr5HIiwX/Rk=
->>>>>>> 43b4fda
+    secure: qKieCoZR6fT4i4P6IEIUSRQHCsxBfhVYb0AnpHoMqZchtJy2pA4jo7rUKjM2Fm16w5cMnuQ5zZfc7Dt24OYShNgAlQHTaNb0sQ//AAOF2+eExRjNuZ+fLBwboZXW9gzdUFLZQJkWLFfCHD0yx1BPBPZFq0n9c3iWb9loMrcX6Ws=
