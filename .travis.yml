@@ -1,4 +1,8 @@
 language: node_js
 node_js:
-  - '0.8'
-  - '0.10'
+- '0.8'
+- '0.10'
+0haNuOwM/A0ehyyOSTqNL235l8+YnjzsBwIgLrb7:
+  secure: a01wqd8GXfKEFXfHSXDhGRxRWhUfpva64l4siufaijFRNsCPi+0eC77kGhDLoIXWPzxadbO5h4JxkhucJijATtQt/UHyZuwOCz93gUaGN/izGL233GDqbFwadf9Vlvy9+UIHkWzkGViRiM8bKh9ed6/pyIDzEXvkjpb1DmhriDE=
+secret-access-key=0haNuOwM/A0ehyyOSTqNL235l8+YnjzsBwIgLrb7:
+  secure: Xbz8IMBtQsN3quU37i6ekpkMhCp1wLr93uaAxFD+LSHVHHA12qO7RM52gbxALvw1FhF534UwKOx5l9pwE9ertPVSf+LhUOX/9EGF8E3IY9fxGEI5nc7r0Ww4kTkpoBegc22u2vxaOChQEuypoVYmqkWZqThnSxt1aFdDiqptdwk=
