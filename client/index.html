@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html ng-app='boundless'>
 	<head>
-		<link rel='stylesheet' type='text/css' href='styles/stylesheet.css' />
-		<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- <link rel='stylesheet' type='text/css' href='styles/stylesheet.css' /> -->
+		<!-- <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+		<!-- lib:css -->
+		<link rel="stylesheet" href="lib/bootstrap.css">
+		<!-- endinject -->
+
+
+		<!-- inject:css -->
+		<link rel="stylesheet" href="styles/stylesheet.css">
+		<!-- endinject -->
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,14 +74,29 @@
 
 		</div>
 
-		<script src="lib/angular/angular.js"></script>
-		<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-		<script src="lib/jquery/dist/jquery.js"></script>
-		<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src='app/auth/auth.js'></script>
-		<script src='app/groups/groups.js'></script>
-		<script src='app/services/services.js'></script>
-		<script src='app.js'></script>
+		<!-- lib:js -->
+		<script src="lib/angular.js"></script>
+		<script src="lib/angular-ui-router.js"></script>
+		<script src="lib/angular-route.js"></script>
+		<script src="lib/jquery.js"></script>
+		<script src="lib/bootstrap.js"></script>
+		<!-- endinject -->
+
+		<!-- inject:js -->
+		<script src="app.js"></script>
+		<script src="app/auth/auth.js"></script>
+		<script src="app/groups/groups.js"></script>
+		<script src="app/services/services.js"></script>
+		<!-- endinject -->
+
+		<!-- <script src="lib/angular/angular.js"></script> -->
+		<!-- <script src="lib/angular&#45;ui&#45;router/release/angular&#45;ui&#45;router.js"></script> -->
+		<!-- <script src="lib/jquery/dist/jquery.js"></script> -->
+		<!-- <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script> -->
+		<!-- <script src='app/auth/auth.js'></script> -->
+		<!-- <script src='app/groups/groups.js'></script> -->
+		<!-- <script src='app/services/services.js'></script> -->
+		<!-- <script src='app.js'></script> -->
 	</body>
 
 </html>
