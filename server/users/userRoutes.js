@@ -7,7 +7,8 @@ module.exports = function (app) {
   app.param('user', userController.parseUserUrl);
 
   app.get('/', userController.browse);
-  app.post('/', userController.signup);
+  app.post('/signin', userController.signin);
+  app.post('/signup', userController.signup);
 
   app.get('/:user/groups', userController.groups);
   // app.post('/signin', userController.signin);
