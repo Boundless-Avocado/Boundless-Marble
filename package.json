@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Meetups on the fly",
   "main": "server.js",
-  "scripts": {
+  // "scripts": {
     // "test": "./node_modules/.bin/karma start --browsers PhantomJS"
-  },
+  // },
   "author": "",
   "license": "ISC",
   "repository": {
