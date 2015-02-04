@@ -10,7 +10,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function (resp) {
 			return resp.data;
-		})
+		});
 	};
 
 	var createGroup = function(data) {
@@ -22,7 +22,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 		//new entry should added to the memberships join table. 
 		// 'data' is an object containing the groups information
@@ -36,7 +36,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 
 	var pingGroup = function(data) {
@@ -48,11 +48,11 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 
 	var getUsers = function(data) {
-		console.log(data.name)
+		console.log(data.name);
 		return $http({
 				method: 'GET',
 				url: '/api/groups/' + data.name + '/',
@@ -60,7 +60,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 
 	var userGroups = function(data) {
@@ -71,7 +71,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 
 	return {
@@ -95,7 +95,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			return resp.data;
-		})
+		});
 	};
 
 		//this should query server for a confirmation code
@@ -108,7 +108,7 @@ angular.module('boundless.services', [])
 		.then(function(resp) {
 			console.log('goodbye');
 			return resp.data.token;
-		})
+		});
 	};
 
 	var signout = function() {

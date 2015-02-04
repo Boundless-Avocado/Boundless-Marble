@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
   parseUserUrl: function (req, res, next, username) {
+    console.log('hello');
     module.exports.findByUsername(username, function (user) {
       req.user = user;
       next();
