@@ -1,3 +1,12 @@
 language: node_js
 node_js:
 - '0.10'
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: am
+  env: am-dev
+  bucket_name: am-guac
+  access_key_id: AKIAI32MQWTO3XQVB5WA
+  secret-access-key:
+    secure: "USZKKyh+kqkhypW7S1MbOCuaGQ+zozkgNWFy1ZF/68w0bCeDdsEeaZXddm8xAAoRFBz/wISXLI/3NJNA6exrK8svROCDqopSDCQjYxzXtVjzLYTEKvCyHLb3Kgp3Ps5hZS5FCTxBBQuAS0FQswNyB4dhbnJROj1Gi0ifGz/e6Yg="
