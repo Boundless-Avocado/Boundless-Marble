@@ -106,6 +106,7 @@ angular.module('boundless.services', [])
 			data: user
 		})
 		.then(function(resp) {
+			console.log('goodbye');
 			return resp.data.token;
 		})
 	};
