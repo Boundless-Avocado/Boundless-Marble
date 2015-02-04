@@ -9,4 +9,4 @@ deploy:
   bucket_name: am-guac
   access_key_id: AKIAI32MQWTO3XQVB5WA
   secret-access-key:
-    secure: "USZKKyh+kqkhypW7S1MbOCuaGQ+zozkgNWFy1ZF/68w0bCeDdsEeaZXddm8xAAoRFBz/wISXLI/3NJNA6exrK8svROCDqopSDCQjYxzXtVjzLYTEKvCyHLb3Kgp3Ps5hZS5FCTxBBQuAS0FQswNyB4dhbnJROj1Gi0ifGz/e6Yg="
+    secure: qKieCoZR6fT4i4P6IEIUSRQHCsxBfhVYb0AnpHoMqZchtJy2pA4jo7rUKjM2Fm16w5cMnuQ5zZfc7Dt24OYShNgAlQHTaNb0sQ//AAOF2+eExRjNuZ+fLBwboZXW9gzdUFLZQJkWLFfCHD0yx1BPBPZFq0n9c3iWb9loMrcX6Ws=
