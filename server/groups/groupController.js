@@ -38,9 +38,9 @@ module.exports = {
     newGroup.save()
     .then(function (result) {
       if (req.body.phone) {
-        require('../users/userController.js').findByUsername(req.body.phone, function(user) {
-          console.dir(user);
-          user.addGroup(newGroup.id).then(function (result) {
+        require('../users/userController.js').findByPhone(req.body.phone, function(phone) {
+          console.dir(phone);
+          phone.addGroup(newGroup.id).then(function (result) {
             res.end(JSON.stringify(result));
           });
         });

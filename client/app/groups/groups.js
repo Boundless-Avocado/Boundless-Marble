@@ -80,7 +80,7 @@ angular.module('boundless.groups', [])
 			.then(function(data) {
 				console.log('getUsers data: ' + data);
 				$scope.data.users = data;
-			})
+			});
 	};
 
 	//fetches all the groups a user is a member of
