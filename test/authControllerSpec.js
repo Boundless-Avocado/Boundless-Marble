@@ -1,3 +1,5 @@
+//NOT WORKING
+
 describe('AuthController', function () {
   var $scope, $rootScope, $location, $window, $httpBackend, createController, Auth;
 
