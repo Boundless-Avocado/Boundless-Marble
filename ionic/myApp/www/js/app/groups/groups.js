@@ -8,6 +8,7 @@ angular.module('boundless.groups', [])
 		usergroups : []
 	};
 
+
 	$scope.joinGroup = function(groupName) {
 		var username = $window.localStorage.getItem('username');
 		var name =groupName.name;

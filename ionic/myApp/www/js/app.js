@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.services', 'boundless.groups'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -30,15 +30,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  // .state('app.groups', {
-  //   url: '/mygroups',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/mygroups.html'
-  //     }
-  //   }
-  // })
-
   .state('app.parent', {
     url: '/parent',
     views: {
@@ -48,22 +39,32 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.groups', {
+  .state('app.mygroups', {
     url: '/mygroups',
     views: {
       'menuContent': {
         templateUrl: 'templates/mygroups.html',
-        // controller: 'PlaylistsCtrl'
+        controller: 'GroupsController'
       }
     }
   })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.creategroup', {
+    url: '/creategroup',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/creategroup.html',
+        controller: 'GroupsController'
+      }
+    }
+  })
+
+  .state('app.findgroup', {
+    url: '/findgroup',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/findgroup.html',
+        controller: 'GroupsController'
       }
     }
   });
