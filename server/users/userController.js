@@ -83,7 +83,7 @@ module.exports = {
     User.findOne({ where: { phone: req.body.phone } })
       .then(function(user){
         if(user){
-          console.log("found");
+          console.log('found');
           console.log(user.password);
           console.log(req.body.password);
           bcrypt.compare(req.body.password, user.password, function(err, result){
@@ -92,6 +92,7 @@ module.exports = {
               console.log('signed in!');
               var token = jwt.createToken(user.phone);
               res.status(200).json({token: token});
+
             } else {
               console.log('Login incorrect');
               res.status(401).send('Login incorrect');
