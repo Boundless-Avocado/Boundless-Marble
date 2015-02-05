@@ -37,9 +37,12 @@ module.exports = {
     var newGroup = Group.build(req.body);
     newGroup.save()
     .then(function (result) {
-      if (req.body.username) {
-        require('../users/userController.js').findByUsername(req.body.username, function(user) {
-          user.addGroup(newGroup).then(function (result) {
+      console.log("JAPAN: " + req.body.phone);
+      if (req.body.phone) {
+        require('../users/userController.js').findByUsername(req.body.phone, function(user) {
+          console.log("AZERBAIJAN");
+          console.dir(user);
+          user.addGroup(newGroup.id).then(function (result) {
             res.end(JSON.stringify(result));
           });
         });
@@ -58,7 +61,7 @@ module.exports = {
 
   join: function (req, res) {
     // TODO: security concern that username is coming from POST request. Easy to forge
-    require('../users/userModel.js').findOne({where: {username: req.body.username}})
+    require('../users/userModel.js').findOne({where: {phone: req.body.phone}})
     .then(function (user) {
       user.addGroup(req.group.id)
       .then(function (result) {
@@ -79,10 +82,10 @@ module.exports = {
 
   ping: function (req, res) {
     if (req.user) {
-      req.body.username = req.user.username;  // lame hack to not fail on username lookup if already done (i.e. Twilio)
+      req.body.phone = req.user.phone;  // lame hack to not fail on username lookup if already done (i.e. Twilio)
     }
 
-    require('../users/userController.js').findByUsername(req.body.username, function(user) {
+    require('../users/userController.js').findByUsername(req.body.phone, function(user) {
       req.user = user;
       req.group.createPing({UserId: req.user.id});
       req.group.getUsers()

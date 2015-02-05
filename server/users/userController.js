@@ -6,6 +6,9 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = {
   parseUserUrl: function (req, res, next, phone) {
     module.exports.findByPhone(phone, function (user, err) {
+      if(!user) {
+       res.status(404).send('No user with number ' + phone + ' in database');
+      }
       req.user = user;
       next();
     });
@@ -14,11 +17,7 @@ module.exports = {
   findByPhone: function (phone, callback) {
     User.findOne({where: {phone: phone}})
     .then(function (user) {
-      if (!user) {
-       res.status(404).send('No user with number ' + phone + ' in database');
-      } else {
-        callback(user);
-      }
+      callback(user);
     });
   },
 
@@ -45,7 +44,7 @@ module.exports = {
     console.log(req.body.phone);
     User.findOne({where: {phone: req.body.phone}})
       .then(function(phone) {
-        if(phone) {
+        if(user) {
           res.status(401).send('Phone number already exists');
         } else {
           // make a new user if not one
@@ -81,9 +80,12 @@ module.exports = {
   signin: function(req, res, next) {
     console.log(req.body.phone);
     User.findOne({ where: { phone: req.body.phone } })
-      .then(function(phone){
-        if(phone){
-          bcrypt.compare(req.body.password, phone.password, function(err, result){
+      .then(function(user){
+        if(user){
+          console.log("found");
+          console.log(user.password);
+          console.log(req.body.password);
+          bcrypt.compare(req.body.password, user.password, function(err, result){
             if(result){
               // return jwt
               console.log(phone);
@@ -95,6 +97,7 @@ module.exports = {
             }
           });
         } else {
+          console.log('jugjug');
           res.status(401).send('Login incorrect');
         }
       })
