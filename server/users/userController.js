@@ -1,5 +1,6 @@
 var User = require('./userModel.js');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../jwtAuth.js');
 
 //USERNAMES ARE PHONE NUMBERS
 
@@ -49,8 +50,7 @@ module.exports = {
         } else {
           // make a new user if not one
           var user = User.build(req.body);
-          bcrypt.genSalt(10, function(err, salt){
-            bcrypt.hash(user.password, salt, null, function(err, hash){
+            bcrypt.hash(user.password, null, null, function(err, hash){
               user.password = hash;
               user.save()
                 .complete(function(err){
@@ -58,12 +58,13 @@ module.exports = {
                     console.log('An error occurred while creating the user: ', err);
                     next(new Error('Error saving user to the database'));
                   } else {
+
                     console.log('The user was successfully created.');
-                    res.status(201).send('User successfully created');
+                    var token = jwt.createToken(user.phone);
+                    res.status(201).json({token: token});
                   }
                 });
             });
-          });
         }
       })
       // .then(function (user) {
@@ -88,9 +89,9 @@ module.exports = {
           bcrypt.compare(req.body.password, user.password, function(err, result){
             if(result){
               // return jwt
-              console.log(phone);
               console.log('signed in!');
-              res.status(200).send(phone);
+              var token = jwt.createToken(user.phone);
+              res.status(200).json({token: token});
             } else {
               console.log('Login incorrect');
               res.status(401).send('Login incorrect');

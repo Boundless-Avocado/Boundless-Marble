@@ -4,6 +4,7 @@ var morgan      = require('morgan'), // used for logging incoming request
 var multiparty = require('multiparty');
 var path = require('path');
 var reloader = require('connect-livereload');
+var jwt = require('./jwtAuth.js');
 
 module.exports = function (app, express) {
   // Express 4 allows us to use multiple routers with their own configurations
@@ -20,7 +21,7 @@ module.exports = function (app, express) {
   app.use(express.static(path.join(__dirname, '/../client')));
 
   app.use('/api/users', userRouter); // use user router for all user request
-  app.use('/api/groups', groupRouter); // use group router for group request
+  app.use('/api/groups', [jwt.decodeToken, groupRouter]); // use group router for group request
   app.use('/api/clients', clientRouter); // use client router for all client request
 
 
