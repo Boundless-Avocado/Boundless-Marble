@@ -11,7 +11,7 @@ module.exports = {
     });
   },
 
-  findByPhone: function (phone, callback) {
+  findByPhone: function (req, res, phone, callback) {
     User.findOne({where: {phone: phone}})
     .then(function (user) {
       if (!user) {
@@ -22,7 +22,7 @@ module.exports = {
     });
   },
 
-  findByEmail: function (email, callback) {
+  findByEmail: function (req, res, email, callback) {
     User.findOne({where: {email: email}})
     .then(function (user) {
       if (!user) {
@@ -95,7 +95,8 @@ module.exports = {
             }
           });
         } else {
-          res.status(401).send('Login incorrect');
+          console.log('no account found with that phone number');
+          res.status(401).send('No account found with that phone number!');
         }
       })
       .catch(function(error){
