@@ -1,6 +1,6 @@
 angular.module('boundless.controllers', ['boundless.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth, $window) {
   // Form data for the login modal
   $scope.loginData = {};
   $scope.signupData = {};
@@ -41,8 +41,8 @@ angular.module('boundless.controllers', ['boundless.services'])
     console.log('Doing login', $scope.loginData);
     Auth.signin($scope.loginData)
     .then(function() {
-      $location.path('/mygroups');
-      
+      $window.localStorage.setItem('phone', $scope.user.phone);
+      // $location.path('/mygroups');
     });
 
     $timeout(function() {
@@ -50,9 +50,15 @@ angular.module('boundless.controllers', ['boundless.services'])
     }, 1000);
   };
 
+
+  // TODO - change stat after successful signin to mygroups
   $scope.doSignUp = function() {
     console.log('Doing signup', $scope.signupData);
-    Auth.signup($scope.signupData);
+    Auth.signup($scope.signupData)
+    .then(function() {
+      $window.localStorage.setItem('phone', $scope.user.phone);
+      // $location.path('/mygroups');
+    });
 
     $timeout(function() {
       $scope.closeSignUp();
