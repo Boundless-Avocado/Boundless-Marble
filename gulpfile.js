@@ -19,7 +19,8 @@ var paths = {
   libcss: 'client/lib/*.css',
   distjs: 'client/dist/*.js',
   distcss: 'client/dist/*.css',
-  watch: ['client/**/*.js','client/**/*.css']
+  ionicResources: ['ionic/myApp/www/js/**/*.js','ionic/myApp/www/css/**/*.css'],
+
 };
 paths.libResources = [paths.libjs, paths.libcss];
 paths.distResources = [paths.distjs, paths.distcss];
@@ -61,11 +62,17 @@ gulp.task('install', function() {
    .pipe(install());
 });
 
-gulp.task('inject-dev', function() {
+gulp.task('inject-web-dev', function() {
   return gulp.src('./client/index.html')
     .pipe(inject(gulp.src(paths.appResources, {read: false}), {relative: true}))
     // .pipe(inject(lib(), {relative: true, name: 'lib'}))
     .pipe(gulp.dest('./client/'));
+});
+
+gulp.task('inject-ionic-dev', function() {
+  return gulp.src('./ionic/myApp/web/index.html')
+    .pipe(inject(gulp.src(paths.appResources, {read: false}), {relative: true}))
+    .pipe(gulp.dest('./ionic/myApp/web/'));
 });
 
 gulp.task('inject', function() {
@@ -87,7 +94,7 @@ gulp.task('serve', function() {
 
 gulp.task('watch', function() {
   $.livereload.listen();
-  gulp.watch(paths.watch, function(event) {
+  gulp.watch(paths.ionicResources, function(event) {
     //TODO add linting and testing here ?
     if (event.type !== 'changed') { //if file was added or deleted...
       $.sequence('inject-dev',function() {
@@ -100,5 +107,5 @@ gulp.task('watch', function() {
 });
 
 //TODO add linting and testing here
-gulp.task('default', $.sequence('install', 'lib', 'inject-dev', 'serve', 'watch'));
+gulp.task('default', $.sequence('lib', 'inject-ionic-dev', 'serve', 'watch'));
 
