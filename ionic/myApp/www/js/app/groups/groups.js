@@ -27,9 +27,15 @@ angular.module('boundless.groups', [])
 			});
 	};
 
+<<<<<<< HEAD
 	$scope.getGroups = function() {
 		console.log('get group command called');
 		Groups.getGroups()
+=======
+	$scope.getGroups = function(groupName) {
+		console.log('group.js: ' + groupName);
+		Groups.getGroups(groupName)
+>>>>>>> 8be99545ddf3f33183674775deb92ee997c6bf83
 			//server sends back groups which should be an array containing objects
 			.then(function (data) {
 				$scope.data.groups = data;

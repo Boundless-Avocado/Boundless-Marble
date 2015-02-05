@@ -15,8 +15,8 @@ module.exports = {
     });
   },
 
+
   findByPhone: function (phone, callback) {
-    console.log('hello');
     User.findOne({where: {phone: phone}})
     .then(function (phone) {
       callback(phone);
