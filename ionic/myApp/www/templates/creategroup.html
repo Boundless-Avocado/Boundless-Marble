@@ -1,13 +1,16 @@
 <ion-view view-title="Create a Group!">
   <ion-content>
   <main class="bs-docs-masthead" id="content" role="main">
-    <div class="container">
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input type="text" placeholder="Group Name">
-        </label>
-        <button class="button button-full button-positive">Create!</button>
+    <form ng-submit="createGroup()">
+      <div class="container">
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.newGroup" placeholder="Group Name" >
+          </label>
+          <button class="button button-full button-positive">Create!</button>
+        </div>
       </div>
+    </form>
   </main>
   </ion-content>
 </ion-view>
