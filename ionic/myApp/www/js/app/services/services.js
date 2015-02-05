@@ -84,7 +84,7 @@ angular.module('boundless.services', [])
 	};
 })
 
-.factory('Auth', function($http, $location, $window){ 
+.factory('Auth', function($http, $location, $window, $state){ 
 		//Authorization is currently storing username in local storage
 	var signin = function(user) {
 		console.log(user);
@@ -94,7 +94,9 @@ angular.module('boundless.services', [])
 				data: user
 		})
 		.then(function(resp) {
-			return resp.data;
+			if (resp) {
+				$state.go('app.mygroups');
+			}
 		});
 	};
 

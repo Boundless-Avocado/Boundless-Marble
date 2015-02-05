@@ -1,6 +1,6 @@
 angular.module('boundless.controllers', ['boundless.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Auth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth) {
   // Form data for the login modal
   $scope.loginData = {};
   $scope.signupData = {};
@@ -39,9 +39,12 @@ angular.module('boundless.controllers', ['boundless.services'])
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
+    Auth.signin($scope.loginData)
+    .then(function() {
+      $location.path('/mygroups');
+      
+    });
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
     $timeout(function() {
       $scope.closeLogin();
     }, 1000);
@@ -53,6 +56,6 @@ angular.module('boundless.controllers', ['boundless.services'])
 
     $timeout(function() {
       $scope.closeSignUp();
-    }, 1000);
+    }, 500);
   };
 });
