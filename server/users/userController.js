@@ -14,14 +14,14 @@ module.exports = {
     });
   },
 
-  findByPhone: function (phone, callback) {
+  findByPhone: function (req, res, phone, callback) {
     User.findOne({where: {phone: phone}})
     .then(function (user) {
       callback(user);
     });
   },
 
-  findByEmail: function (email, callback) {
+  findByEmail: function (req, res, email, callback) {
     User.findOne({where: {email: email}})
     .then(function (user) {
       if (!user) {
@@ -82,23 +82,23 @@ module.exports = {
     User.findOne({ where: { phone: req.body.phone } })
       .then(function(user){
         if(user){
-          console.log("found");
+          console.log('found');
           console.log(user.password);
           console.log(req.body.password);
           bcrypt.compare(req.body.password, user.password, function(err, result){
             if(result){
               // return jwt
-              console.log(phone);
+              // console.log(phone);
               console.log('signed in!');
-              res.status(200).send(phone);
+              res.status(200).send(req.body.phone);
             } else {
               console.log('Login incorrect');
               res.status(401).send('Login incorrect');
             }
           });
         } else {
-          console.log('jugjug');
-          res.status(401).send('Login incorrect');
+          console.log('no account found with that phone number');
+          res.status(401).send('No account found with that phone number!');
         }
       })
       .catch(function(error){
