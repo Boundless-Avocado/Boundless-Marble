@@ -4,7 +4,7 @@ var morgan      = require('morgan'), // used for logging incoming request
 var multiparty = require('multiparty');
 var path = require('path');
 var reloader = require('connect-livereload');
-var jwt = require('../jwtAuth.js');
+var jwt = require('./jwtAuth.js');
 
 module.exports = function (app, express) {
   // Express 4 allows us to use multiple routers with their own configurations
