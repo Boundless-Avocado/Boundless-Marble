@@ -42,7 +42,7 @@ module.exports = {
 
   signup: function (req, res, next) {
     // check to see if user already exists
-    console.log(req.body);
+    console.log(req.body.phone);
     User.findOne({where: {phone: req.body.phone}})
       .then(function(phone) {
         if(phone) {
@@ -79,6 +79,7 @@ module.exports = {
   },
 
   signin: function(req, res, next) {
+    console.log(req.body.phone);
     User.findOne({ where: { phone: req.body.phone } })
       .then(function(phone){
         if(phone){
@@ -86,6 +87,7 @@ module.exports = {
             if(result){
               // return jwt
               console.log(phone);
+              console.log('signed in!');
               res.status(200).send(phone);
             } else {
               console.log('Login incorrect');
