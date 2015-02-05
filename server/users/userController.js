@@ -1,27 +1,13 @@
 var User = require('./userModel.js');
 var bcrypt = require('bcrypt-nodejs');
 
+//USERNAMES ARE PHONE NUMBERS
+
 module.exports = {
-  parseUserUrl: function (req, res, next, username) {
-    console.log('hello');
-    module.exports.findByUsername(username, function (user) {
+  parseUserUrl: function (req, res, next, phone) {
+    module.exports.findByPhone(phone, function (user, err) {
       req.user = user;
       next();
-    });
-  },
-
-  findByUsername: function (username, callback) {
-    User.findOne({where: {username: username}})
-    .then(function (user) {
-      if (!user) {
-        console.log('No user with username ' + username + ' in database');
-      } else {
-        if (callback) {
-          callback(user);
-        } else {
-          return user;
-        }
-      }
     });
   },
 
@@ -29,13 +15,9 @@ module.exports = {
     User.findOne({where: {phone: phone}})
     .then(function (user) {
       if (!user) {
-        console.log('No user with number ' + phone + ' in database');
+       res.status(404).send('No user with number ' + phone + ' in database');
       } else {
-        if (callback) {
-          callback(user);
-        } else {
-          return user;
-        }
+        callback(user);
       }
     });
   },
@@ -44,13 +26,9 @@ module.exports = {
     User.findOne({where: {email: email}})
     .then(function (user) {
       if (!user) {
-        console.log('No user with email ' + email + ' in database');
+        res.status(404).send('No user with email ' + email + ' in database');
       } else {
-        if (callback) {
-          callback(user);
-        } else {
-          return user;
-        }
+        callback(user);
       }
     });
   },
@@ -58,7 +36,7 @@ module.exports = {
   browse: function (req, res) {
     User.findAll()
     .then(function (users) {
-      res.end(JSON.stringify(users));
+      res.status(200).send(JSON.stringify(users));
     });
   },
 
@@ -126,7 +104,7 @@ module.exports = {
   groups: function (req, res) {
     req.user.getGroups()
     .then(function (groups) {
-      res.end(JSON.stringify(groups));
+      res.status(200).send(JSON.stringify(groups));
     });
   }
 };
