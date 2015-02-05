@@ -9,8 +9,8 @@ angular.module('boundless.auth', [])
 		Auth.signin($scope.user)
 			.then(function() {
 					//storing username in local storage to retrieve later
-				$window.localStorage.setItem('username', $scope.user.username);
-				console.log('localStorage = ' + $window.localStorage.getItem('username'));
+				$window.localStorage.setItem('phone', $scope.user.phone);
+				console.log('localStorage = ' + $window.localStorage.getItem('phone'));
 				$location.path('/groups');
 					//this is where we will will set a token/cookie/jwt
 			})
@@ -22,21 +22,21 @@ angular.module('boundless.auth', [])
 		//on signup, user is issued token
 	$scope.signup = function() {
 		//storing username in local storage to retrieve later
-		$window.localStorage.setItem('username', $scope.user.username);
+		$window.localStorage.setItem('phone', $scope.user.phone);
 		
 		Auth.signup($scope.user) 
 				//after singup, user should be redirected to confirmation
 				//page while they wait for code
 			.then(function() {
 				// $window.localStorage.setItem('boundless-avocado', token);
-				$location.path('/groups');
+				$location.path('/');
 			})
 			.catch(function(error) {
 				console.log(error);
 			});
 	};
 
-		//user provides confirmation code to finalize signup
+	//user provides confirmation code to finalize signup
 	// $scope.confirm = function() {
 	// 	Auth.confirm($scope.code) 
 	// 		.then(function(token) {
@@ -49,4 +49,7 @@ angular.module('boundless.auth', [])
 	// };
 
 
+})
+.controller('SignOutController', function(Auth) {
+	Auth.signout();
 });

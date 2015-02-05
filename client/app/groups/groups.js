@@ -8,14 +8,13 @@ angular.module('boundless.groups', [])
 		usergroups : []
 	};
 
-	$scope.joinGroup = function(groupName) {
-		var username = $window.localStorage.getItem('username');
-		var name =groupName.name;
+	$scope.joinGroup = function(group) {
+		var phone = $window.localStorage.getItem('phone');
 		var data = {
-			username: username, 
-			name: name
+			phone: phone, 
+			name: group.name
 		};
-		console.log(data.username +' joined the group: ' + data.name);
+		console.log(data.phone +' joined the group: ' + data.name);
 
 		Groups.joinGroup(data)
 			.then(function() {
@@ -27,9 +26,9 @@ angular.module('boundless.groups', [])
 	};
 
 	 
-	$scope.getGroups = function(groupName) {
-		console.log('group.js: ' + groupName);
-		Groups.getGroups(groupName)
+	$scope.getGroups = function() {
+		console.log('GETTING GROUPS');
+		Groups.getGroups()
 			//server sends back groups which should be an array containing objects
 			.then(function (data) {
 				$scope.data.groups = data;
@@ -40,9 +39,9 @@ angular.module('boundless.groups', [])
 		console.log($scope.data.newGroup)
 		//pass groupName & username to create a new group
 		var name = $scope.data.newGroup;
-		var username = $window.localStorage.getItem('username');
+		var phone = $window.localStorage.getItem('phone');
 		var data = {
-			username: username, 
+			phone: phone, 
 			name: name
 		};
 
@@ -58,10 +57,10 @@ angular.module('boundless.groups', [])
 	$scope.pingGroup = function(groupName) {
 		//only the username is need to ping the group
 		var name = groupName.name;
-		var username = $window.localStorage.getItem('username');
-		console.log('pingGroup: ' + username)
+		var phone = $window.localStorage.getItem('phone');
+		console.log('pingGroup: ' + phone)
 		var data = {
-			username: username,
+			phone: phone,
 			name: name
 		};
 
@@ -87,12 +86,9 @@ angular.module('boundless.groups', [])
 	//fetches all the groups a user is a member of
 	$scope.userGroups = function() {
 		console.log('groups.js');
-		var username = $window.localStorage.getItem('username');
-		var data = {
-			username: username
-		};
+		var phone = $window.localStorage.getItem('phone');
 
-		Groups.userGroups(data)
+		Groups.userGroups(phone)
 			.then(function(data) {
 				console.log(data);
 				$scope.data.usergroups = data;
