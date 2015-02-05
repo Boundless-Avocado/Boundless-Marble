@@ -42,7 +42,7 @@ module.exports = {
 
   signup: function (req, res, next) {
     // check to see if user already exists
-    console.log('really');
+    console.log(req.body);
     User.findOne({where: {phone: req.body.phone}})
       .then(function(phone) {
         if(phone) {
@@ -57,7 +57,7 @@ module.exports = {
                 .complete(function(err){
                   if(!!err){
                     console.log('An error occurred while creating the user: ', err);
-                    next(new Error('Error saving user to the database'))
+                    next(new Error('Error saving user to the database'));
                   } else {
                     console.log('The user was successfully created.');
                     res.status(201).send('User successfully created');

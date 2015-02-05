@@ -16,7 +16,8 @@ module.exports = function (app, express) {
   app.use(bodyParser.urlencoded({extended: true}));
   // app.use(bodyParser.json({type: 'application/*+json'}));
   app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname, '/../client')));
+  app.use(reloader());
+  app.use(express.static(path.join(__dirname, '/../ionic/myapp/www')));
 
   app.use('/api/users', userRouter); // use user router for all user request
   app.use('/api/groups', groupRouter); // use group router for group request
