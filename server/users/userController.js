@@ -68,7 +68,7 @@ module.exports = {
     User.findOne({where: {phone: req.body.phone}})
       .then(function(phone) {
         if(phone) {
-          next(new Error('Phone number already exists'));
+          res.status(401).send('Phone number already exists');
         } else {
           // make a new user if not one
           var user = User.build(req.body);
@@ -79,9 +79,10 @@ module.exports = {
                 .complete(function(err){
                   if(!!err){
                     console.log('An error occurred while creating the user: ', err);
+                    next(new Error('Error saving user to the database'))
                   } else {
                     console.log('The user was successfully created.');
-                    res.end('success');
+                    res.status(201).send('User successfully created');
                   }
                 });
             });
@@ -95,6 +96,29 @@ module.exports = {
       //   res.send(req.body);
       // })
       .catch(function (error) {
+        next(error);
+      });
+  },
+
+  signin: function(req, res, next) {
+    User.findOne({ where: { phone: req.body.phone } })
+      .then(function(phone){
+        if(phone){
+          bcrypt.compare(req.body.password, phone.password, function(err, result){
+            if(result){
+              // return jwt
+              console.log(phone);
+              res.status(200).send(phone);
+            } else {
+              console.log('Login incorrect');
+              res.status(401).send('Login incorrect');
+            }
+          });
+        } else {
+          res.status(401).send('Login incorrect');
+        }
+      })
+      .catch(function(error){
         next(error);
       });
   },
