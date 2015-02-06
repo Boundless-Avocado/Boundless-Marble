@@ -6,11 +6,16 @@
         <div class="list list-inset">
           <label class="item item-input">
             <input type="text" ng-model="data.newGroup" placeholder="Group Name" >
+            <!-- <input type="text" ng-model="data.physicalAddress" placeholder="Address" > -->
+            <input type="text" ng-model="data.latitude" placeholder="Latitude">
+            <input type="text" ng-model="data.longitude" placeholder="Longitude">
+            <!-- <a href="#" ng-click="getLocation()"> Get My Location </a> -->
           </label>
-          <button class="button button-full button-positive">Create!</button>
+          <input type="submit" id="submit" value="Submit" />
         </div>
       </div>
     </form>
+    <button ng-click="getLocation()" class="button button-full button-positive"> Use Current Location </button>
   </main>
   </ion-content>
 </ion-view>

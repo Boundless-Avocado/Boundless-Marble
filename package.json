@@ -47,6 +47,7 @@
     "connect-livereload": "^0.5.2",
     "express": "^4.4.5",
     "jwt-simple": "^0.2.0",
+    "mongoose": "^3.8.22",
     "morgan": "^1.1.1",
     "multiparty": "^4.1.1",
     "mysql": "^2.5.4",

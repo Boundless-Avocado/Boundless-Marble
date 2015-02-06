@@ -67,4 +67,5 @@ angular.module('boundless.controllers', ['boundless.services'])
       $scope.closeSignUp();
     }, 500);
   };
+
 });
