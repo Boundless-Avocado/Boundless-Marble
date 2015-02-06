@@ -17,7 +17,7 @@ module.exports = {
           } else {
             next(new Error('user does not exist'));
           }
-        })
+        });
 
     } else {
       next(new Error('No token'));
@@ -27,4 +27,4 @@ module.exports = {
   createToken: function(phone){
     return jwt.encode({phone: phone}, secret);
   }
-}
+};

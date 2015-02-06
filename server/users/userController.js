@@ -6,23 +6,25 @@ var jwt = require('../jwtAuth.js');
 
 module.exports = {
   parseUserUrl: function (req, res, next, phone) {
-    module.exports.findByPhone(phone, function (user, err) {
-      if(!user) {
+    module.exports.findByPhone(phone, function (phone, err) {
+      if(!phone) {
        res.status(404).send('No user with number ' + phone + ' in database');
       }
-      req.user = user;
+      req.phone = phone;
       next();
     });
   },
 
+
   findByPhone: function (phone, callback) {
+    console.log('hello');
     User.findOne({where: {phone: phone}})
-    .then(function (user) {
-      callback(user);
+    .then(function (phone) {
+      callback(phone);
     });
   },
 
-  findByEmail: function (email, callback) {
+  findByEmail: function (req, res, email, callback) {
     User.findOne({where: {email: email}})
     .then(function (user) {
       if (!user) {
@@ -83,23 +85,21 @@ module.exports = {
     User.findOne({ where: { phone: req.body.phone } })
       .then(function(user){
         if(user){
-          console.log("found");
-          console.log(user.password);
-          console.log(req.body.password);
           bcrypt.compare(req.body.password, user.password, function(err, result){
             if(result){
               // return jwt
               console.log('signed in!');
               var token = jwt.createToken(user.phone);
               res.status(200).json({token: token});
+
             } else {
               console.log('Login incorrect');
               res.status(401).send('Login incorrect');
             }
           });
         } else {
-          console.log('jugjug');
-          res.status(401).send('Login incorrect');
+          console.log('no account found with that phone number');
+          res.status(401).send('No account found with that phone number!');
         }
       })
       .catch(function(error){
@@ -108,7 +108,8 @@ module.exports = {
   },
 
   groups: function (req, res) {
-    req.user.getGroups()
+    console.log(req.body);
+    req.body.phone.getGroups()
     .then(function (groups) {
       res.status(200).send(JSON.stringify(groups));
     });

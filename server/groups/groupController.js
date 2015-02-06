@@ -37,11 +37,9 @@ module.exports = {
     var newGroup = Group.build(req.body);
     newGroup.save()
     .then(function (result) {
-      console.log("JAPAN: " + req.body.phone);
       if (req.body.phone) {
-        require('../users/userController.js').findByUsername(req.body.phone, function(user) {
-          console.log("AZERBAIJAN");
-          console.dir(user);
+        require('../users/userController.js').findByPhone(req.body.phone, function(user) {
+          console.dir(phone);
           user.addGroup(newGroup.id).then(function (result) {
             res.end(JSON.stringify(result));
           });
@@ -93,7 +91,7 @@ module.exports = {
         users.forEach(function (user) {
           clients.sendSMS(req.user.username + " says, 'Lets get together for some " + req.group.name + " today!' Text back " + req.user.phone, user.phone);
           clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
-        })
+        });
         res.end('Pinged ' + users.length + ' members of ' + req.group.name);
       });
     });
