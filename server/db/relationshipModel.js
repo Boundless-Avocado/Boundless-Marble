@@ -11,3 +11,5 @@ User.belongsToMany(Group, {through: Membership});
 Group.belongsToMany(User, {through: Membership});
 
 Membership.sync();
+
+module.exports = Membership;
