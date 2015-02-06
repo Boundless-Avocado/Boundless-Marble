@@ -24,7 +24,6 @@ angular.module('boundless.groups', [])
 				console.log(error);
 			});
 	};
-
 	 
 	$scope.getGroups = function() {
 		console.log('GETTING GROUPS');
@@ -32,11 +31,11 @@ angular.module('boundless.groups', [])
 			//server sends back groups which should be an array containing objects
 			.then(function (data) {
 				$scope.data.groups = data;
-		})
+		});
 	};
 
 	$scope.createGroup = function() {
-		console.log($scope.data.newGroup)
+		console.log($scope.data.newGroup);
 		//pass groupName & username to create a new group
 		var name = $scope.data.newGroup;
 		var phone = $window.localStorage.getItem('phone');
@@ -58,7 +57,7 @@ angular.module('boundless.groups', [])
 		//only the username is need to ping the group
 		var name = group.name;
 		var phone = $window.localStorage.getItem('phone');
-		console.log('pingGroup: ' + phone)
+		console.log('pingGroup: ' + phone);
 		var data = {
 			phone: phone,
 			name: name

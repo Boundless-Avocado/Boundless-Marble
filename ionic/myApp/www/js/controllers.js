@@ -1,7 +1,12 @@
 angular.module('boundless.controllers', ['boundless.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth, $window) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth, $window, $state) {
   // Form data for the login modal
+
+  $scope.gomygroups = function() {
+    $state.go('app.mygroups');
+  };
+
   $scope.loginData = {};
   $scope.signupData = {};
 

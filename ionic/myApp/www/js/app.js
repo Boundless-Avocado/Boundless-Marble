@@ -49,6 +49,28 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     }
   })
 
+  .state('app.mygroupdetails', {
+    url: '/mygroupdetails',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mygroupdetails.html',
+        controller: 'MyGroupDetailsController'
+      }
+    }
+  })
+
+  // .state('app.mygroups.details', {
+  //   url: '/api/group/:group',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/mygroupdetails.html',
+  //       controller: function() {
+
+  //       }
+  //     }
+  //   }
+  // })
+
   .state('app.creategroup', {
     url: '/creategroup',
     views: {
@@ -59,11 +81,11 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     }
   })
 
-  .state('app.findgroup', {
-    url: '/findgroup',
+  .state('app.allgroups', {
+    url: '/allgroups',
     views: {
       'menuContent': {
-        templateUrl: 'templates/findgroup.html',
+        templateUrl: 'templates/allgroups.html',
         controller: 'GroupsController'
       }
     }
