@@ -5,8 +5,8 @@ angular.module('boundless.services', [])
 		console.log(data);
 		return $http({
 			method: 'POST',
-			url: '/api/group/' + data.groupName + '/pings/',
-			data: data.messageData
+			url: '/api/groups/' + data.groupName + '/pings/',
+			data: data
 		})
 		.then(function(resp) {
 			return resp.data;
