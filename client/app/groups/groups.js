@@ -54,9 +54,9 @@ angular.module('boundless.groups', [])
 			});
 	};
 
-	$scope.pingGroup = function(groupName) {
+	$scope.pingGroup = function(group) {
 		//only the username is need to ping the group
-		var name = groupName.name;
+		var name = group.name;
 		var phone = $window.localStorage.getItem('phone');
 		console.log('pingGroup: ' + phone)
 		var data = {
@@ -74,9 +74,9 @@ angular.module('boundless.groups', [])
 	};
 
 	//fetches all the members in the group
-	$scope.getUsers = function(groupName) {
-		console.log('first step: ' + groupName);
-		Groups.getUsers(groupName)
+	$scope.getUsers = function(group) {
+		console.log('first step: ' + group.name);
+		Groups.getUsers(group)
 			.then(function(data) {
 				console.log('getUsers data: ' + data);
 				$scope.data.users = data;

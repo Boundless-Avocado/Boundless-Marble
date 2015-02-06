@@ -39,7 +39,8 @@ module.exports = {
     .then(function (result) {
       if (req.body.phone) {
         require('../users/userController.js').findByPhone(req.body.phone, function(user) {
-          console.dir(phone);
+          console.log("AZERBAIJAN");
+          console.dir(user);
           user.addGroup(newGroup.id).then(function (result) {
             res.end(JSON.stringify(result));
           });
@@ -83,7 +84,7 @@ module.exports = {
       req.body.phone = req.user.phone;  // lame hack to not fail on username lookup if already done (i.e. Twilio)
     }
 
-    require('../users/userController.js').findByUsername(req.body.phone, function(user) {
+    require('../users/userController.js').findByPhone(req.body.phone, function(user) {
       req.user = user;
       req.group.createPing({UserId: req.user.id});
       req.group.getUsers()
