@@ -1,10 +1,37 @@
 angular.module('boundless.groups', [])
 
-.controller('MyGroupDetailsController', function($scope, Groups, GroupNamePersist) {
-  //hold data here after quering db
+.controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message) {
+
+  $ionicModal.fromTemplateUrl('templates/sendMessage.html', {
+    scope: $scope
+  })
+  .then(function(modal) {
+    $scope.modalMessage = modal;
+  });
 
   $scope.getGroup = function() {
     return GroupNamePersist.getGroupName();
+  };
+
+  $scope.sendMessage = function() {
+    var data = {
+      messageData: $scope.messageData,
+      groupName: $scope.groupName
+    };
+    Message.sendMessage(data)
+    .then(function() {
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 500);
+    });
+  };
+
+  $scope.openMessage = function() {
+    $scope.modalMessage.show();
+  };
+
+  $scope.closeMessage = function() {
+    $scope.modalMessage.hide();
   };
 
   $scope.getUsers = function(groupName) {
@@ -16,12 +43,20 @@ angular.module('boundless.groups', [])
       });
   };
 
-  console.log($scope.getGroup());
   $scope.users = $scope.getUsers($scope.getGroup());
-  console.log($scope.users);
   $scope.groupName = $scope.getGroup();
-})
 
+    // TODO: leave group
+  $scope.leaveGroup = function(groupName) {
+    var phone = $window.localStorage.getItem('phone');
+    var data = {
+      phone: phone,
+      groupName: groupName
+    };
+
+    Groups.leaveGroup(data);
+  };
+})
 
 .controller('GroupsController', function($scope, $window, $location, Groups, GroupNamePersist, $state) {
   //hold data here after quering db
@@ -38,9 +73,7 @@ angular.module('boundless.groups', [])
 
   $scope.groupDetail = function(groupName) {
     $scope.addGroup(groupName);
-
     $state.go('app.mygroupdetails');
-    
   };
 
   $scope.joinGroup = function(group) {
@@ -60,12 +93,6 @@ angular.module('boundless.groups', [])
       .catch(function(error) {
         console.log(error);
       });
-  };
-
-  // TODO: leave group 
-
-  $scope.leaveGroup = function() {
-    console.log('i was clicked to leave a group but i havent been built yet....build me out!');
   };
 
   $scope.getGroups = function() {
@@ -114,19 +141,9 @@ angular.module('boundless.groups', [])
       });
   };
 
-  //fetches all the members in the group
-  $scope.getUsers = function(groupName) {
-    console.log('first step: ' + groupName);
-    Groups.getUsers(groupName)
-      .then(function(data) {
-        console.log('getUsers data: ' + data);
-        $scope.data.users = data;
-      });
-  };
-
   //fetches all the groups a user is a member of
   $scope.userGroups = function() {
-    console.log('groups.js');
+    console.log('user group refresh');
     var phone = $window.localStorage.getItem('phone');
 
     Groups.userGroups(phone)
@@ -141,6 +158,5 @@ angular.module('boundless.groups', [])
 
   $scope.getGroups();
   $scope.userGroups();
-  // console.log(($scope.getGroup()));
 
-}); 
+});

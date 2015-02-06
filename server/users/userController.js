@@ -17,9 +17,6 @@ module.exports = {
   },
 
   leaveGroup: function(req,res) {
-    console.dir("ZIMBABWE");
-    console.dir(req.user);
-    console.dir(req.group);
     Membership.destroy({where: {UserId: req.user.id, GroupId: req.group.id}})
       .then(function() {
         res.status(200).send('You left the group.');
