@@ -64,7 +64,7 @@ angular.module('boundless.groups', [])
 			phone: phone,
 			name: name
 		};
-
+		
 		Groups.pingGroup(data)
 			.then(function() {
 				$location.path('/groups');

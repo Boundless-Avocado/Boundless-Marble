@@ -6,11 +6,11 @@ var jwt = require('../jwtAuth.js');
 
 module.exports = {
   parseUserUrl: function (req, res, next, phone) {
-    module.exports.findByPhone(phone, function (phone, err) {
-      if(!phone) {
+    module.exports.findByPhone(phone, function (user) {
+      if(!user) {
        res.status(404).send('No user with number ' + phone + ' in database');
       }
-      req.phone = phone;
+      req.user = user;
       next();
     });
   },
@@ -19,8 +19,8 @@ module.exports = {
   findByPhone: function (phone, callback) {
     console.log('hello');
     User.findOne({where: {phone: phone}})
-    .then(function (phone) {
-      callback(phone);
+    .then(function (user) {
+      callback(user);
     });
   },
 
@@ -108,7 +108,8 @@ module.exports = {
 
   groups: function (req, res) {
     console.log(req.body);
-    req.body.phone.getGroups()
+    
+    req.user.getGroups()
     .then(function (groups) {
       res.status(200).send(JSON.stringify(groups));
     });

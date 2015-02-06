@@ -133,11 +133,12 @@ angular.module('boundless.services', [])
 })
 
 .factory('AttachTokens', function($window){ 
-	console.log('attaching!');
+	
 		//Authorization is currently storing username in local storage
 	var attach = {
 
 		request: function(object) {
+			console.log('attaching!');
 			var jwt = $window.localStorage.getItem('token');
 			console.log(jwt);
 			if (jwt) {
