@@ -1,7 +1,5 @@
 angular.module('boundless.services', [])
 
-	//services to fetch & make groups
-
 .factory('Message', function($http) {
 	var sendMessage = function(data) {
 		console.log(data);
@@ -26,7 +24,6 @@ angular.module('boundless.services', [])
 	var setGroupName = function(newGroup) {
 		console.log('setting group name!', newGroup);
 		groupName = newGroup;
-
 	};
 
 	var getGroupName = function() {
@@ -121,8 +118,8 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			if (resp) {
-				var newGroups = userGroups(data.phone);
-				$state.go('app.mygroups', {}, {reload:true});
+				// var newGroups = userGroups(data.phone);
+				$state.go('app.mygroups');
 			}
 		});
 	};

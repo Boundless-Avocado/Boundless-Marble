@@ -56,7 +56,12 @@ angular.module('boundless.groups', [])
 
     Groups.leaveGroup(data);
   };
+
+
+  $scope.users = $scope.getUsers($scope.getGroup());
+  $scope.groupName = $scope.getGroup();
 })
+
 
 .controller('GroupsController', function($scope, $window, $location, Groups, GroupNamePersist, $state) {
   //hold data here after quering db
@@ -143,7 +148,7 @@ angular.module('boundless.groups', [])
 
   //fetches all the groups a user is a member of
   $scope.userGroups = function() {
-    console.log('user group refresh');
+    console.log('groups.js');
     var phone = $window.localStorage.getItem('phone');
 
     Groups.userGroups(phone)
