@@ -1,7 +1,7 @@
 <div ng-repeat="usergroup in data.usergroups"> 
 	<div class="col-md-4">
 
-		<h2><a ng-click="getUsers(usergroup)">{{ usergroups.name }}</a></h2>
+		<h2><a ng-click="getUsers(usergroup)">{{ usergroup.name }}</a></h2>
 	  
 	  <ul> 
 	  	<li ng-repeat='user in data.users'> {{ user.username + " " + user.phone }} </li>

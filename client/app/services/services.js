@@ -38,12 +38,12 @@ angular.module('boundless.services', [])
 		});
 	};
 
-	var pingGroup = function(phone) {
+	var pingGroup = function(data) {
 		console.log(data.phone + ' pinged the group: ' + data.name);
 		return $http({
 			method: 'POST',
-			url: '/api/groups/' + phone+ '/pings/',
-			data: {phone: phone}
+			url: '/api/groups/' + data.name + '/pings/',
+			data: data
 		})
 		.then(function(resp) {
 			return resp.data;
@@ -126,7 +126,6 @@ angular.module('boundless.services', [])
 		signup: signup,
 		isAuth: isAuth,
 		signout: signout,
-		confirm : confirm
 	};
 });
 

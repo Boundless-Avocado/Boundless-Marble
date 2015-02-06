@@ -91,7 +91,6 @@ module.exports = {
               console.log('signed in!');
               var token = jwt.createToken(user.phone);
               res.status(200).json({token: token});
-
             } else {
               console.log('Login incorrect');
               res.status(401).send('Login incorrect');
