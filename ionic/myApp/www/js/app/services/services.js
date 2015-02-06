@@ -94,6 +94,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			if (resp) {
+				$window.localStorage.setItem('token', resp.data.token);
 				$state.go('app.mygroups');
 			}
 		});
@@ -107,7 +108,10 @@ angular.module('boundless.services', [])
 			data: user
 		})
 		.then(function(resp) {
-			return resp.data.token;
+			if (resp) {
+				$window.localStorage.setItem('token', resp.data.token);
+				$state.go('app.mygroups');
+			}
 		});
 	};
 
@@ -125,6 +129,24 @@ angular.module('boundless.services', [])
 		signup: signup,
 		isAuth: isAuth,
 		signout: signout,
-		confirm : confirm
 	};
+})
+
+.factory('AttachTokens', function($window){ 
+	console.log('attaching!');
+		//Authorization is currently storing username in local storage
+	var attach = {
+
+		request: function(object) {
+			var jwt = $window.localStorage.getItem('token');
+			console.log(jwt);
+			if (jwt) {
+				object.headers['x-access-token'] = jwt;
+			}
+			object.headers['Allow-Control-Allow-Origin'] = '*';
+			return object;
+		}
+	};
+
+	return attach;
 });

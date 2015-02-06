@@ -41,8 +41,7 @@ angular.module('boundless.controllers', ['boundless.services'])
     console.log('Doing login', $scope.loginData);
     Auth.signin($scope.loginData)
     .then(function() {
-      $window.localStorage.setItem('phone', $scope.user.phone);
-      // $location.path('/mygroups');
+      $window.localStorage.setItem('phone', $scope.loginData.phone);
     });
 
     $timeout(function() {
@@ -50,14 +49,11 @@ angular.module('boundless.controllers', ['boundless.services'])
     }, 1000);
   };
 
-
-  // TODO - change stat after successful signin to mygroups
   $scope.doSignUp = function() {
     console.log('Doing signup', $scope.signupData);
     Auth.signup($scope.signupData)
     .then(function() {
-      $window.localStorage.setItem('phone', $scope.user.phone);
-      // $location.path('/mygroups');
+      $window.localStorage.setItem('phone', $scope.signupData.phone);
     });
 
     $timeout(function() {

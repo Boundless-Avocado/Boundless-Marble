@@ -20,7 +20,7 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
 
   .state('app', {
@@ -68,6 +68,8 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
       }
     }
   });
-  // if none of the above states are matched, use this as the fallback
+
   $urlRouterProvider.otherwise('/app/parent');
+
+  $httpProvider.interceptors.push('AttachTokens');
 });
