@@ -10,7 +10,7 @@
     "url": "https://github.com/Boundless-Avocado/Boundless-Avocado.git"
   },
   "scripts": {
-    "postinstall": "whoami; bower install", 
+    "postinstall": "whoami; bower install || echo 'BOWER NOT AVAILABLE';", 
     "start": "node server/server.js"
   },
   "devDependencies": {
