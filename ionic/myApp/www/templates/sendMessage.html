@@ -1,0 +1,20 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Send a Message to {{ groupName }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeMessage()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="sendMessage()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="messageData" class='messageHeight'>
+        </label>
+        <!-- <label class="item"> -->
+          <button class="button button-block button-positive" type="submit">Send!</button>
+        <!-- </label> -->
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

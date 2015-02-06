@@ -1,6 +1,22 @@
 angular.module('boundless.services', [])
 
-	//services to fetch & make groups
+.factory('Message', function($http) {
+	var sendMessage = function(data) {
+		console.log(data);
+		return $http({
+			method: 'POST',
+			url: '/api/group/' + data.groupName + '/pings/',
+			data: data.messageData
+		})
+		.then(function(resp) {
+			return resp.data;
+		});
+	};
+
+	return {
+		sendMessage: sendMessage,
+	};
+})
 
 .service('GroupNamePersist', function() {
 	var groupName = '';
@@ -8,7 +24,6 @@ angular.module('boundless.services', [])
 	var setGroupName = function(newGroup) {
 		console.log('setting group name!', newGroup);
 		groupName = newGroup;
-
 	};
 
 	var getGroupName = function() {
@@ -51,7 +66,6 @@ angular.module('boundless.services', [])
 		//new entry should added to the memberships join table. 
 		// 'data' is an object containing the groups information
 	var joinGroup = function(data) {
-		// console.log('Joined: ' + data.groupName);
 		console.log(data.phone +' joined the group: ' + data.name);
 		return $http({
 			method: 'POST',
@@ -76,7 +90,6 @@ angular.module('boundless.services', [])
 	};
 
 	var getUsers = function(data) {
-		console.log(data);
 		return $http({
 				method: 'GET',
 				url: '/api/groups/' + data + '/',
@@ -92,7 +105,22 @@ angular.module('boundless.services', [])
 			url: '/api/users/' + phone + '/groups',
 		})
 		.then(function(resp) {
+			console.log('userGroup called');
 			return resp.data;
+		});
+	};
+
+	var leaveGroup = function(data) {
+		return $http({
+				method: 'delete',
+				url: '/api/users/' + data.phone + '/groups/' + data.groupName,
+				data: data
+		})
+		.then(function(resp) {
+			if (resp) {
+				// var newGroups = userGroups(data.phone);
+				$state.go('app.mygroups');
+			}
 		});
 	};
 
@@ -102,7 +130,8 @@ angular.module('boundless.services', [])
 		joinGroup: joinGroup,
 		pingGroup: pingGroup,
 		getUsers: getUsers,
-		userGroups: userGroups
+		userGroups: userGroups,
+		leaveGroup: leaveGroup
 	};
 })
 

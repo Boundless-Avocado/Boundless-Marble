@@ -1,9 +1,10 @@
 <ion-view view-title="My Groups">
   <ion-content>
     <div ng-repeat="group in data.usergroups">
-      <div class="list card">
-      <button class="item item-icon-left"> <i class="icon ion-home" ng-click="groupDetail(group.name)"></i>
+      <div class="list card" ng-click="groupDetail(group.name)">
+      <div class="item item-icon-left"> <i class="icon ion-home"></i>
         {{ group.name }}
+      </div>
       </div>
     </div>
   </div>
