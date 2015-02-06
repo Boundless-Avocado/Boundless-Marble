@@ -27,6 +27,7 @@ angular.module('boundless.groups', [])
 			});
 	};
 
+
 	$scope.getGroups = function() {
 		console.log('get group command called');
 		Groups.getGroups()

@@ -49,6 +49,8 @@ angular.module('boundless.controllers', ['boundless.services'])
     }, 1000);
   };
 
+
+  // TODO - change stat after successful signin to mygroups
   $scope.doSignUp = function() {
     console.log('Doing signup', $scope.signupData);
     Auth.signup($scope.signupData)
