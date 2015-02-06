@@ -59,18 +59,6 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     }
   })
 
-  // .state('app.mygroups.details', {
-  //   url: '/api/group/:group',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/mygroupdetails.html',
-  //       controller: function() {
-
-  //       }
-  //     }
-  //   }
-  // })
-
   .state('app.creategroup', {
     url: '/creategroup',
     views: {

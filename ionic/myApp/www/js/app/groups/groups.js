@@ -5,7 +5,7 @@ angular.module('boundless.groups', [])
   $scope.data = {
     groups: Groups.data,
     users: [],
-    usergroups : []
+    usergroups: []
   };
 
   $scope.addGroup = function(groupName) {
@@ -102,26 +102,28 @@ angular.module('boundless.groups', [])
 
   $scope.getLocation = function() {
 
-    console.log("DINGO DOGS");
     navigator.geolocation.getCurrentPosition(function(position) {
+
       $scope.data.latitude = position.coords.latitude;
       $scope.data.longitude = position.coords.longitude;
-      console.dir($scope.data.gpsLocation);
-      var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + '&key=AIzaSyAetgCNCAt4BQjBptlQMWCbAEbORSUdwJg';
+      $scope.$apply();
+      console.dir($scope.data.latitude);
+      console.dir($scope.data.longitude);
+      var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&key=AIzaSyAetgCNCAt4BQjBptlQMWCbAEbORSUdwJg';
 
       // $http.get(url).
       // success(function(data, status, headers, config) {
       //   $scope.data.physicalAddress = data.results[0].formatted_address;
       // }).
       // error(function(data, status, headers, config) {
-      //  $scope.data.physicalAddress = "Unknown";
+      //  $scope.data.physicalAddress = 'Unknown';
       // }); 
     });
   };
 
   $scope.getGroups();
   $scope.userGroups();
-});
+})
 
 .controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message) {
 
@@ -138,9 +140,11 @@ angular.module('boundless.groups', [])
 
   $scope.sendMessage = function() {
     var data = {
-      messageData: $scope.messageData,
-      groupName: $scope.groupName
+      Body: $scope.messageData,
+      groupName: $scope.groupName,
+      phone: $window.localStorage.getItem('phone')
     };
+
     Message.sendMessage(data)
     .then(function() {
     $timeout(function() {
