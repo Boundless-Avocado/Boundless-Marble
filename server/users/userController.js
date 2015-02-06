@@ -1,4 +1,5 @@
 var User = require('./userModel.js');
+var Membership = require('../db/relationshipModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../jwtAuth.js');
 
@@ -13,6 +14,17 @@ module.exports = {
       req.user = user;
       next();
     });
+  },
+
+  leaveGroup: function(req,res) {
+    console.dir("ZIMBABWE");
+    console.dir(req.user);
+    console.dir(req.group);
+    Membership.destroy({where: {UserId: req.user.id, GroupId: req.group.id}})
+      .then(function() {
+        res.status(200).send('You left the group.');
+      });
+
   },
 
 

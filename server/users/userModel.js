@@ -8,8 +8,8 @@ var User = db.define('Users', {
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING, 
-    allowNull: false 
+    type: Sequelize.STRING,
+    allowNull: false
   },
   username: Sequelize.STRING,
   email: Sequelize.STRING
