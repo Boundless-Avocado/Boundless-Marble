@@ -12,7 +12,8 @@ var User = db.define('Users', {
     allowNull: false
   },
   username: Sequelize.STRING,
-  email: Sequelize.STRING
+  email: Sequelize.STRING,
+  lastMessageGroup: Sequelize.INTEGER
 });
 
 User.sync()

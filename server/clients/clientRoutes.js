@@ -8,7 +8,7 @@ module.exports = function (app) {
       req.user = user;
 
       if (req.body.Body.slice(0,5).toUpperCase() === "JOIN ") {
-        groupController.find(req.body.Body.slice(5), function (group) {
+        groupController.find({name: req.body.Body.slice(5)}, function (group) {
           req.group = group;
           req.body.username = user.username;
           groupController.join(req, res);
@@ -29,7 +29,13 @@ module.exports = function (app) {
       //   userController.signup(req, res);
 
       } else {
-        groupController.find(req.body.Body.toLowerCase(), function (group) {
+        var smsBody = req.body.Body.toLowerCase();
+        if(req.body.Body.slice(0,1) === '@') {
+          var where = {name: smsBody.slice(1, smsBody.indexOf(' '))};
+        } else {
+          var where = {id: req.user.lastMessageGroup}
+        }
+        groupController.find(where, function (group) {
           req.group = group;
           groupController.ping(req, res);
         });
@@ -46,7 +52,7 @@ module.exports = function (app) {
         req.user = user;
 
         if (fields.subject[0].slice(0,5).toUpperCase() === "JOIN ") {
-          groupController.find(fields.subject[0].slice(5), function (group) {
+          groupController.find({name: fields.subject[0].slice(5)}, function (group) {
             req.group = group;
             req.body.username = user.username;
             groupController.join(req, res);
@@ -63,7 +69,7 @@ module.exports = function (app) {
         //   groupController.browse(req, res);
 
         } else {
-          groupController.find(fields.subject[0].toLowerCase(), function (group) {
+          groupController.find({name: fields.subject[0].toLowerCase()}, function (group) {
             req.group = group;
             groupController.ping(req, res);
           });
