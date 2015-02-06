@@ -81,12 +81,6 @@ module.exports = {
             });
         }
       })
-      // .then(function (user) {
-      //   // TODO: create token to send back for auth
-      //   // var token = jwt.encode(user, 'secret');
-      //   // res.json({token: token});
-      //   res.send(req.body);
-      // })
       .catch(function (error) {
         next(error);
       });
@@ -120,6 +114,7 @@ module.exports = {
 
   groups: function (req, res) {
     console.log(req.body);
+    console.log('group being called');
     
     req.user.getGroups()
     .then(function (groups) {

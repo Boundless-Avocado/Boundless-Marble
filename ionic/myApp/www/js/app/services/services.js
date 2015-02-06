@@ -1,7 +1,28 @@
 angular.module('boundless.services', [])
 
 	//services to fetch & make groups
-.factory('Groups', function($http) {
+
+.service('GroupNamePersist', function() {
+	var groupName = '';
+
+	var setGroupName = function(newGroup) {
+		console.log('setting group name!', newGroup);
+		groupName = newGroup;
+
+	};
+
+	var getGroupName = function() {
+		console.log('getting group name!');
+		return groupName;
+	};
+
+	return {
+		setGroupName: setGroupName,
+		getGroupName: getGroupName
+	};
+})
+
+.factory('Groups', function($http, $state) {
 
 	var getGroups = function() {
 		return $http({
@@ -21,6 +42,9 @@ angular.module('boundless.services', [])
 			data: data
 		})
 		.then(function(resp) {
+			if (resp) {
+				$state.go('app.mygroups');
+			}
 			return resp.data;
 		});
 	};
@@ -52,11 +76,10 @@ angular.module('boundless.services', [])
 	};
 
 	var getUsers = function(data) {
-		console.log(data.name);
+		console.log(data);
 		return $http({
 				method: 'GET',
-				url: '/api/groups/' + data.name + '/',
-				data: data
+				url: '/api/groups/' + data + '/',
 		})
 		.then(function(resp) {
 			return resp.data;
@@ -109,8 +132,8 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			if (resp) {
+				$state.go('app.allgroups');
 				$window.localStorage.setItem('token', resp.data.token);
-				$state.go('app.mygroups');
 			}
 		});
 	};
