@@ -10,9 +10,6 @@
     "url": "https://github.com/Boundless-Avocado/Boundless-Avocado.git"
   },
   "scripts": {
-    "postinstall": "whoami > /var/log/ERIC; bower install > /var/log/ERIC1 || echo 'BOWER NOT AVAILABLE' >/var/log/ERIC2;", 
-    "prepublish": "bower install > /var/log/ERIC3|| /opt/elasticbeanstalk/node-install/node-v0.10.31-linux-x64/bin/bower install > /var/log/ERIC4", 
-    "prestart": "bower install > /var/log/ERIC5",
     "start": "node server/server.js"
   },
   "devDependencies": {
