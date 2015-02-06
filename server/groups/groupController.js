@@ -1,7 +1,8 @@
 var Group = require('./groupModel.js');
-require('../db/relationshipModel.js'); // sets up many-to-many relationship
-require('../db/pingModel.js'); // sets up Pings table
+//require('../db/relationshipModel.js'); // sets up many-to-many relationship
+//require('../db/pingModel.js'); // sets up Pings table
 var clients = require('../clients/clientController.js');
+var Location = require('../location/locationModel.js');
 
 module.exports = {
   parseGroupUrl: function (req, res, next, groupName) {
@@ -34,20 +35,31 @@ module.exports = {
   },
 
   create: function (req, res) {
-    var newGroup = Group.build(req.body);
+    var group = req.body;
+    console.dir(group);
+
+
+    var newGroup = Group.build(group);
     newGroup.save()
     .then(function (result) {
-      if (req.body.phone) {
-        require('../users/userController.js').findByPhone(req.body.phone, function(user) {
-          console.log("AZERBAIJAN");
-          console.dir(user);
-          user.addGroup(newGroup.id).then(function (result) {
+      require('../users/userController.js').findByPhone(req.body.phone, function(user) {
+        user.addGroup(newGroup.id).then(function (result) {
+          var doc = {
+            physicalAddress: group.physicalAddress,
+            name: group.name,
+            phone: group.name,
+            location: {
+              coordinates: [group.longitude, group.latitude]
+            }
+          };
+          console.dir(doc);
+          Location.create(doc).then(function (err, result) {
+            console.log('fuck yeah');
+            console.dir(result);
             res.end(JSON.stringify(result));
           });
         });
-      } else {
-        res.end(JSON.stringify(result));
-      }
+      });
     });
   },
 

@@ -1,11 +1,14 @@
 var express = require('express');
-
+var mongoose = require('mongoose');
 var reloader = require('connect-livereload');
+var sqldb = require('./db/index.js');
 var app = express();
 var port = process.env.PORT || 8080;
 
 app.listen(port);
 console.log('Server now listening on port ' + port);
+
+mongoose.connect('mongodb://localhost/guac'); // connect to mongo database named guac
 
 // configure server with middleware and routing
 require('./middleware.js')(app, express);
