@@ -6,14 +6,14 @@ var Location = require('../location/locationModel.js');
 
 module.exports = {
   parseGroupUrl: function (req, res, next, groupName) {
-    module.exports.find(groupName, function (group) {
+    module.exports.find({name: groupName}, function (group) {
       req.group = group;
       next();
     });
   },
 
-  find: function (groupName, callback) {
-    Group.findOne({where: {name: groupName}})
+  find: function (whereCriteria, callback) {
+    Group.findOne({where: whereCriteria})
     .then(function (group) {
       if (!group) {
         console.log('user is searching for "' + groupName + '", but not in database');
@@ -102,8 +102,9 @@ module.exports = {
       req.group.getUsers()
       .then(function (users) {
         users.forEach(function (user) {
-          clients.sendSMS(req.user.username + " says, 'Lets get together for some " + req.group.name + " today!' Text back " + req.user.phone, user.phone);
-          clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
+          clients.sendSMS(req.user.username + " says: " + req.body.Body);
+          // clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
+          user.set('lastMessageGroup', req.group.id).save();
         });
         res.end('Pinged ' + users.length + ' members of ' + req.group.name);
       });
