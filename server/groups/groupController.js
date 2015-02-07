@@ -34,6 +34,23 @@ module.exports = {
     });
   },
 
+  nearby: function(req, res) {
+    var coords = [req.query.longitude, req.query.latitude];
+    Location.find({location : {
+      $near : {
+        $geometry : {
+          type : "Point",
+          coordinates : coords
+        },
+        $maxDistance : 1000
+        }
+      }
+    })
+    .then(function (groups) {
+      res.end(JSON.stringify(groups));
+    });
+  },
+
   create: function (req, res) {
     var group = req.body;
     console.dir(group);

@@ -14,19 +14,9 @@ LocationSchema.index({ location : '2dsphere' });
 
 module.exports = Location = mongoose.model('Location', LocationSchema);
 
-LocationSchema.methods.getNear = function () {
-  //TODO
-  // Location.find({location : {
-  //     $near : {
-  //       $geometry : {
-  //         type : "Point",
-  //         coordinates : this.coordinates
-  //       },
-  //       $maxDistance : 1000
-  //     }
-  //   }
-  // });
-};
+// LocationSchema.methods.getNear = function () {
+  //TODO ?
+// };
 
 // ALTERNATIVE ?
 // var options = { near: [10, 10], maxDistance: 5 };
