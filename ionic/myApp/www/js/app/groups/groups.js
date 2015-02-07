@@ -192,5 +192,53 @@ angular.module('boundless.groups', [])
 
   $scope.users = $scope.getUsers($scope.getGroup());
   $scope.groupName = $scope.getGroup();
-});
+})
 
+
+.controller('GroupsController', function($scope, $window, $location, $http, Groups, GroupNamePersist, $state) {
+  //hold data here after quering db
+  $scope.data = {
+    nearbyGroups : []
+  }
+
+  $scope.joinGroup = function(groupName) {
+    var phone = $window.localStorage.getItem('phone');
+    console.log('group: ' + groupName);
+    var data = {
+      phone: phone, 
+      name: groupName
+    };
+    console.log(phone + ' joined the group: ' + groupName);
+
+    Groups.joinGroup(data)
+      .then(function() {
+        // $location.path('/groups');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+  $scope.getNearbyGroups = function() {
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+      $scope.data.latitude = position.coords.latitude;
+      $scope.data.longitude = position.coords.longitude;
+      $scope.$apply();
+      console.dir($scope.data.latitude);
+      console.dir($scope.data.longitude);
+
+      Groups.nearby($scope.data.latitude, $scope.data.longitude)
+      //server sends back groups which should be an array containing objects
+      .then(function (data) {
+        console.log("HOLY SHIT THE LOCATION DATA:");
+        console.dir(data);
+        $scope.data.nearbyGroups = data;
+      });
+
+    });
+  };
+
+  $scope.getNearbyGroups();
+})

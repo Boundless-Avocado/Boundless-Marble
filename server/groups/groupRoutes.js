@@ -9,6 +9,8 @@ module.exports = function (app) {
   app.get('/', groupController.browse);
   app.post('/', groupController.create);
 
+  app.get('/nearby', groupController.nearby);
+
   app.get('/:group', groupController.members);
   app.post('/:group', groupController.join);
 

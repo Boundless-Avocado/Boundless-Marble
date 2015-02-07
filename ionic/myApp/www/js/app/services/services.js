@@ -124,6 +124,20 @@ angular.module('boundless.services', [])
 		});
 	};
 
+	var nearby = function(lat, lng) {
+		return $http({
+			method: 'GET',
+			url: '/api/groups/nearby',
+			params: {
+				latitude: lat,
+				longitude: lng
+			}
+		})
+		.then(function (resp) {
+			return resp.data;
+		});
+	}
+
 	return {
 		getGroups: getGroups,
 		createGroup: createGroup,
@@ -131,7 +145,8 @@ angular.module('boundless.services', [])
 		pingGroup: pingGroup,
 		getUsers: getUsers,
 		userGroups: userGroups,
-		leaveGroup: leaveGroup
+		leaveGroup: leaveGroup,
+		nearby: nearby
 	};
 })
 
