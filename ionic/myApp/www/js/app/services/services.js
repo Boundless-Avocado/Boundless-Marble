@@ -20,7 +20,7 @@ angular.module('boundless.services', [])
 
 .service('GroupNamePersist', function() {
 	var groupName = '';
-
+	
 	var setGroupName = function(newGroup) {
 		console.log('setting group name!', newGroup);
 		groupName = newGroup;

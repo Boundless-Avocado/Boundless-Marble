@@ -94,6 +94,7 @@ angular.module('boundless.groups', [])
       .then(function(data) {
         // console.log(data);
         $scope.data.usergroups = data;
+        $scope.data.usergroups.count = data.length;
       })
       .catch(function(error) {
         console.log(error);
@@ -127,6 +128,8 @@ angular.module('boundless.groups', [])
 
 .controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message) {
 
+  $scope.messageData = ''; 
+
   $ionicModal.fromTemplateUrl('templates/sendMessage.html', {
     scope: $scope
   })
@@ -138,12 +141,13 @@ angular.module('boundless.groups', [])
     return GroupNamePersist.getGroupName();
   };
 
-  $scope.sendMessage = function() {
+  $scope.sendMessage = function(messageData) {
     var data = {
-      Body: $scope.messageData,
+      Body: messageData,
       groupName: $scope.groupName,
       phone: $window.localStorage.getItem('phone')
     };
+    console.log(data.Body);
 
     Message.sendMessage(data)
     .then(function() {
@@ -167,6 +171,7 @@ angular.module('boundless.groups', [])
       .then(function(data) {
         console.dir('getUsers data: ' + data);
         $scope.users = data;
+        $scope.users.count = data.length;
       });
   };
 
