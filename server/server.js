@@ -8,7 +8,9 @@ var port = process.env.PORT || 8080;
 app.listen(port);
 console.log('Server now listening on port ' + port);
 
-mongoose.connect('mongodb://localhost/guac'); // connect to mongo database named guac
+var MONGO_IP = process.env.MONGO_HOST || 'localhost';
+
+mongoose.connect('mongodb://' + MONGO_IP + '/guac'); // connect to mongo database named guac
 
 // configure server with middleware and routing
 require('./middleware.js')(app, express);
