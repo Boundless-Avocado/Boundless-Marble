@@ -71,7 +71,7 @@ gulp.task('inject-web-dev', function() {
 
 gulp.task('inject-ionic-dev', function() {
   return gulp.src('./ionic/myApp/web/index.html')
-    .pipe(inject(gulp.src(paths.appResources, {read: false}), {relative: true}))
+    .pipe(inject(gulp.src(paths.ionicResources, {read: false}), {relative: true}))
     .pipe(gulp.dest('./ionic/myApp/web/'));
 });
 
@@ -108,4 +108,4 @@ gulp.task('watch', function() {
 
 //TODO add linting and testing here
 gulp.task('default', $.sequence('lib', 'inject-ionic-dev', 'serve', 'watch'));
-
+gulp.task('prodBuild',$.sequence('lib','inject-ionic-dev'));
