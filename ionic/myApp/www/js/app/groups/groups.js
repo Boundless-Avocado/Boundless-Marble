@@ -5,7 +5,8 @@ angular.module('boundless.groups', [])
   $scope.data = {
     groups: Groups.data,
     users: [],
-    usergroups: []
+    usergroups: [],
+    nearbyGroups : []
   };
 
   $scope.addGroup = function(groupName) {
@@ -36,13 +37,13 @@ angular.module('boundless.groups', [])
       });
   };
 
-
   $scope.getGroups = function() {
     console.log('get group command called');
     Groups.getGroups()
       //server sends back groups which should be an array containing objects
       .then(function (data) {
         $scope.data.groups = data;
+        $scope.data.groupslength = data.length;
     });
   };
 
@@ -52,14 +53,14 @@ angular.module('boundless.groups', [])
     var data = {
       phone:  $window.localStorage.getItem('phone'),
       name: $scope.data.newGroup,
-      latitude: $scope.data.latitude,
-      longitude: $scope.data.longitude,
+      latitude: $scope.data.latitude || 0,
+      longitude: $scope.data.longitude || 0,
       physicalAddress: $scope.data.physicalAddress,
     };
 
     Groups.createGroup(data)
       .then(function() {
-        $location.path('/groups');
+        // $location.path('/groups');
       })
       .catch(function(error) {
         console.log(error);
@@ -122,11 +123,34 @@ angular.module('boundless.groups', [])
     });
   };
 
+  $scope.getNearbyGroups = function() {
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+      $scope.data.latitude = position.coords.latitude;
+      $scope.data.longitude = position.coords.longitude;
+      $scope.$apply();
+      console.dir($scope.data.latitude);
+      console.dir($scope.data.longitude);
+
+      Groups.nearby($scope.data.latitude, $scope.data.longitude)
+      //server sends back groups which should be an array containing objects
+      .then(function (data) {
+        console.log("HOLY SHIT THE LOCATION DATA:");
+        console.dir(data);
+        $scope.data.nearbyGroups = data;
+      });
+
+    });
+  };
+
   $scope.getGroups();
   $scope.userGroups();
+  $scope.getNearbyGroups();
+
 })
 
-.controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message) {
+.controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message, $state) {
 
   $scope.messageData = ''; 
 
@@ -178,7 +202,6 @@ angular.module('boundless.groups', [])
   $scope.users = $scope.getUsers($scope.getGroup());
   $scope.groupName = $scope.getGroup();
 
-    // TODO: leave group
   $scope.leaveGroup = function(groupName) {
     var phone = $window.localStorage.getItem('phone');
     var data = {
@@ -192,53 +215,4 @@ angular.module('boundless.groups', [])
 
   $scope.users = $scope.getUsers($scope.getGroup());
   $scope.groupName = $scope.getGroup();
-})
-
-
-.controller('GroupsController', function($scope, $window, $location, $http, Groups, GroupNamePersist, $state) {
-  //hold data here after quering db
-  $scope.data = {
-    nearbyGroups : []
-  }
-
-  $scope.joinGroup = function(groupName) {
-    var phone = $window.localStorage.getItem('phone');
-    console.log('group: ' + groupName);
-    var data = {
-      phone: phone, 
-      name: groupName
-    };
-    console.log(phone + ' joined the group: ' + groupName);
-
-    Groups.joinGroup(data)
-      .then(function() {
-        // $location.path('/groups');
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
-  $scope.getNearbyGroups = function() {
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-
-      $scope.data.latitude = position.coords.latitude;
-      $scope.data.longitude = position.coords.longitude;
-      $scope.$apply();
-      console.dir($scope.data.latitude);
-      console.dir($scope.data.longitude);
-
-      Groups.nearby($scope.data.latitude, $scope.data.longitude)
-      //server sends back groups which should be an array containing objects
-      .then(function (data) {
-        console.log("HOLY SHIT THE LOCATION DATA:");
-        console.dir(data);
-        $scope.data.nearbyGroups = data;
-      });
-
-    });
-  };
-
-  $scope.getNearbyGroups();
-})
+});

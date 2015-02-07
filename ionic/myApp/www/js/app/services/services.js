@@ -118,8 +118,8 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			if (resp) {
-				// var newGroups = userGroups(data.phone);
-				$state.go('app.mygroups');
+				$state.transitionTo ('app.mygroups', null, { location: false, inherit: true, relative: $state.$current, notify: true });
+				$state.go('app.mygroups', { });
 			}
 		});
 	};
