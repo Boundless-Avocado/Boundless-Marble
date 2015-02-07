@@ -1,4 +1,4 @@
-<ion-view view-title="My Groups">
+<ion-view view-title="My Groups ({{data.usergroups.count}})">
   <ion-content>
     <div ng-repeat="group in data.usergroups">
       <div class="list card" ng-click="groupDetail(group.name)">

@@ -1,18 +1,19 @@
 var Group = require('./groupModel.js');
-require('../db/relationshipModel.js'); // sets up many-to-many relationship
+//require('../db/relationshipModel.js'); // sets up many-to-many relationship
 require('../db/pingModel.js'); // sets up Pings table
 var clients = require('../clients/clientController.js');
+var Location = require('../location/locationModel.js');
 
 module.exports = {
   parseGroupUrl: function (req, res, next, groupName) {
-    module.exports.find(groupName, function (group) {
+    module.exports.find({name: groupName}, function (group) {
       req.group = group;
       next();
     });
   },
 
-  find: function (groupName, callback) {
-    Group.findOne({where: {name: groupName}})
+  find: function (whereCriteria, callback) {
+    Group.findOne({where: whereCriteria})
     .then(function (group) {
       if (!group) {
         console.log('user is searching for "' + groupName + '", but not in database');
@@ -34,20 +35,31 @@ module.exports = {
   },
 
   create: function (req, res) {
-    var newGroup = Group.build(req.body);
+    var group = req.body;
+    console.dir(group);
+
+
+    var newGroup = Group.build(group);
     newGroup.save()
     .then(function (result) {
-      if (req.body.phone) {
-        require('../users/userController.js').findByPhone(req.body.phone, function(user) {
-          console.log("AZERBAIJAN");
-          console.dir(user);
-          user.addGroup(newGroup.id).then(function (result) {
+      require('../users/userController.js').findByPhone(req.body.phone, function(user) {
+        user.addGroup(newGroup.id).then(function (result) {
+          var doc = {
+            physicalAddress: group.physicalAddress,
+            name: group.name,
+            phone: group.name,
+            location: {
+              coordinates: [group.longitude, group.latitude]
+            }
+          };
+          console.dir(doc);
+          Location.create(doc).then(function (err, result) {
+            console.log('fuck yeah');
+            console.dir(result);
             res.end(JSON.stringify(result));
           });
         });
-      } else {
-        res.end(JSON.stringify(result));
-      }
+      });
     });
   },
 
@@ -87,11 +99,13 @@ module.exports = {
     require('../users/userController.js').findByPhone(req.body.phone, function(user) {
       req.user = user;
       req.group.createPing({UserId: req.user.id});
+      console.log('pinged')
       req.group.getUsers()
       .then(function (users) {
         users.forEach(function (user) {
-          clients.sendSMS(req.user.username + " says, 'Lets get together for some " + req.group.name + " today!' Text back " + req.user.phone, user.phone);
-          clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
+          clients.sendSMS(req.user.username + " says: " + req.body.Body, user.phone);
+          // clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
+          user.set('lastMessageGroup', req.group.id).save();
         });
         res.end('Pinged ' + users.length + ' members of ' + req.group.name);
       });

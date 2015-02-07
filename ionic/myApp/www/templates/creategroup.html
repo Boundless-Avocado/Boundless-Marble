@@ -1,16 +1,24 @@
 <ion-view view-title="Create a Group!">
   <ion-content>
   <main class="bs-docs-masthead" id="content" role="main">
-    <form ng-submit="createGroup()">
       <div class="container">
         <div class="list list-inset">
-          <label class="item item-input">
-            <input type="text" ng-model="data.newGroup" placeholder="Group Name" >
-          </label>
-          <button class="button button-full button-positive">Create!</button>
+          <!-- <label class="item item-input"> -->
+            <label class="item item-input">
+              <input type="text" ng-model="data.newGroup" placeholder="Group Name" autofocus>
+            </label>
+            <button ng-click="getLocation()" class="button button-full button-positive"> 
+            <i class='ion-navigate'></i> Get Location </button>
+            <label class="item item-input">
+              <input type="text" ng-model="data.latitude" placeholder="Latitude">
+            </label>
+            <label class="item item-input">
+              <input type="text" ng-model="data.longitude" placeholder="Longitude">
+            </label>
+            <!-- <input type="text" ng-model="data.physicalAddress" placeholder="Address" > -->
+          <button ng-click="createGroup()" class="button button-full button-positive"> Create Group </button>
         </div>
       </div>
-    </form>
   </main>
   </ion-content>
 </ion-view>

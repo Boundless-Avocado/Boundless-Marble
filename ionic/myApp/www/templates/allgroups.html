@@ -1,9 +1,9 @@
-<ion-view view-title="Tap a Group to Join!">
+<ion-view view-title="All Groups!">
   <ion-content>
   <div class="list list-inset">
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
-      <input type="text" placeholder="Search" ng-model="search">
+      <input type="text" placeholder="Search for a group and tap it to join!" ng-model="search">
     </label>
   </div>
   <div ng-repeat="group in data.groups | filter:search" >
