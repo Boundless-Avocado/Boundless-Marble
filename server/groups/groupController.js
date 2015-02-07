@@ -103,7 +103,6 @@ module.exports = {
       req.group.getUsers()
       .then(function (users) {
         users.forEach(function (user) {
-          console.log(req.body);
           clients.sendSMS(req.user.username + " says: " + req.body.Body, user.phone);
           // clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
           user.set('lastMessageGroup', req.group.id).save();
