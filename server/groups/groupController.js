@@ -1,6 +1,6 @@
 var Group = require('./groupModel.js');
 //require('../db/relationshipModel.js'); // sets up many-to-many relationship
-//require('../db/pingModel.js'); // sets up Pings table
+require('../db/pingModel.js'); // sets up Pings table
 var clients = require('../clients/clientController.js');
 var Location = require('../location/locationModel.js');
 
@@ -99,10 +99,12 @@ module.exports = {
     require('../users/userController.js').findByPhone(req.body.phone, function(user) {
       req.user = user;
       req.group.createPing({UserId: req.user.id});
+      console.log('pinged')
       req.group.getUsers()
       .then(function (users) {
         users.forEach(function (user) {
-          clients.sendSMS(req.user.username + " says: " + req.body.Body);
+          console.log(req.body);
+          clients.sendSMS(req.user.username + " says: " + req.body.Body, user.phone);
           // clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
           user.set('lastMessageGroup', req.group.id).save();
         });
