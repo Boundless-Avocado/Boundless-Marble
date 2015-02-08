@@ -1,4 +1,4 @@
-<ion-modal-view style="height:20%; width: 100%">
+<ion-modal-view style="height:15%">
   <ion-header-bar>
     <h1 class="title">Send a Message to {{ groupName }}</h1>
     <div class="buttons">
@@ -6,10 +6,10 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="sendMessage(messageData)">
+    <form ng-submit="sendMessage(data.messageData)">
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" ng-model="messageData" autofocus>
+          <input type="text" ng-model="data.messageData" autofocus>
         </label>
         <!-- <label class="item"> -->
           <button class="button button-block button-positive" type="submit">Send!</button>

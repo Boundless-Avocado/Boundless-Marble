@@ -1,13 +1,12 @@
-<ion-view view-title="My Groups ({{data.usergroups.count}})">
+<ion-view view-title="My Groups">
   <ion-content>
-    <div ng-repeat="group in data.usergroups">
-      <div class="list card" ng-click="groupDetail(group.name)">
-      <div class="item item-icon-left"> <i class="icon ion-home"></i>
-        {{ group.name }}
+    
+      <div ng-repeat="group in data.usergroups" class="list list-inset"  ng-click="groupDetail(group.name)">
+        <div class="item item-icon-left center">
+          <i class="icon ion-home center"></i> {{ group.name }}
+        </div>
       </div>
-      </div>
-    </div>
-  </div>
+    
   </ion-content>
 </ion-view>
 

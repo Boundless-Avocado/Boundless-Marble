@@ -16,7 +16,7 @@ module.exports = {
     Group.findOne({where: whereCriteria})
     .then(function (group) {
       if (!group) {
-        console.log('user is searching for "' + groupName + '", but not in database');
+        console.log('user is searching for ' + groupName + ', but not in database');
       } else {
         if (callback) {
           callback(group);
@@ -39,7 +39,7 @@ module.exports = {
     Location.find({location : {
       $near : {
         $geometry : {
-          type : "Point",
+          type : 'Point',
           coordinates : coords
         },
         $maxDistance : 1000
@@ -54,7 +54,6 @@ module.exports = {
   create: function (req, res) {
     var group = req.body;
     console.dir(group);
-
 
     var newGroup = Group.build(group);
     newGroup.save()
@@ -120,8 +119,8 @@ module.exports = {
       req.group.getUsers()
       .then(function (users) {
         users.forEach(function (user) {
-          clients.sendSMS(req.user.username + " says: " + req.body.Body, user.phone);
-          // clients.sendEmail("Why don't we get together for some " + req.group.name + " today?", req.user.username + " invited you! Just reply to this message to update " + req.user.username + " on your status.", user.email, req.user.email);
+          clients.sendSMS(req.user.username + ' says: ' + req.body.Body, user.phone);
+          // clients.sendEmail('Why don't we get together for some ' + req.group.name + ' today?', req.user.username + ' invited you! Just reply to this message to update ' + req.user.username + ' on your status.', user.email, req.user.email);
           user.set('lastMessageGroup', req.group.id).save();
         });
         res.end('Pinged ' + users.length + ' members of ' + req.group.name);

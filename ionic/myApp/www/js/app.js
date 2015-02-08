@@ -1,10 +1,11 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.services', 'boundless.groups'])
+angular.module('boundless', ['ionic', 'boundless.controllers', 
+                                      'boundless.services', 
+                                      'boundless.myGroups', 
+                                      'boundless.allGroups', 
+                                      'boundless.groupDetails', 
+                                      'boundless.createGroup',
+                                      'boundless.nearbyGroups'
+                            ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -44,7 +45,7 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     views: {
       'menuContent': {
         templateUrl: 'templates/mygroups.html',
-        controller: 'GroupsController'
+        controller: 'MyGroupsController'
       }
     }
   })
@@ -64,7 +65,7 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     views: {
       'menuContent': {
         templateUrl: 'templates/creategroup.html',
-        controller: 'GroupsController'
+        controller: 'CreateGroupController'
       }
     }
   })
@@ -74,7 +75,7 @@ angular.module('boundless', ['ionic', 'boundless.controllers', 'boundless.servic
     views: {
       'menuContent': {
         templateUrl: 'templates/allgroups.html',
-        controller: 'GroupsController'
+        controller: 'AllGroupsController'
       }
     }
   });
