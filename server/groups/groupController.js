@@ -45,7 +45,7 @@ module.exports = {
         $maxDistance : 1000
         }
       }
-    })
+    }).exec()
     .then(function (groups) {
       res.end(JSON.stringify(groups));
     });
