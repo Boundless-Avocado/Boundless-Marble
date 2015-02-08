@@ -2,7 +2,7 @@ angular.module('boundless.services', [])
 
 .factory('Message', function($http) {
 	var sendMessage = function(data) {
-		console.log(data);
+		console.log('factory send message called');
 		return $http({
 			method: 'POST',
 			url: '/api/groups/' + data.groupName + '/pings/',
@@ -73,18 +73,7 @@ angular.module('boundless.services', [])
 			data: data
 		})
 		.then(function(resp) {
-			return resp.data;
-		});
-	};
-
-	var pingGroup = function(data) {
-		console.log(data.phone + ' pinged the group: ' + data.name);
-		return $http({
-			method: 'POST',
-			url: '/api/groups/' + data.name + '/pings/',
-			data: {phone: data.phone}
-		})
-		.then(function(resp) {
+			console.log(resp.data);
 			return resp.data;
 		});
 	};
@@ -118,8 +107,7 @@ angular.module('boundless.services', [])
 		})
 		.then(function(resp) {
 			if (resp) {
-				$state.transitionTo ('app.mygroups', null, { location: false, inherit: true, relative: $state.$current, notify: true });
-				$state.go('app.mygroups', { });
+				$state.go('app.mygroups');
 			}
 		});
 	};
@@ -136,13 +124,12 @@ angular.module('boundless.services', [])
 		.then(function (resp) {
 			return resp.data;
 		});
-	}
+	};
 
 	return {
 		getGroups: getGroups,
 		createGroup: createGroup,
 		joinGroup: joinGroup,
-		pingGroup: pingGroup,
 		getUsers: getUsers,
 		userGroups: userGroups,
 		leaveGroup: leaveGroup,
@@ -205,9 +192,7 @@ angular.module('boundless.services', [])
 	var attach = {
 
 		request: function(object) {
-			console.log('attaching!');
 			var jwt = $window.localStorage.getItem('token');
-			console.log(jwt);
 			if (jwt) {
 				object.headers['x-access-token'] = jwt;
 			}
