@@ -10,7 +10,7 @@ module.exports = function (app) {
       if (req.body.Body.slice(0,5).toUpperCase() === "JOIN ") {
         groupController.find({name: req.body.Body.slice(5)}, function (group) {
           req.group = group;
-          req.body.username = user.username;
+          req.body.phone = user.phone;
           groupController.join(req, res);
         });
 
@@ -30,7 +30,7 @@ module.exports = function (app) {
 
       } else {
         var smsBody = req.body.Body.toLowerCase();
-        if(req.body.Body.slice(0,1) === '@') {
+        if(req.body.Body[0] === '@') {
           var where = {name: smsBody.slice(1, smsBody.indexOf(' '))};
         } else {
           var where = {id: req.user.lastMessageGroup}
