@@ -1,7 +1,13 @@
 angular.module('boundless.myGroups', [])
 
-.controller('MyGroupsController', function($scope, $window, Groups, GroupNamePersist, $state) {
-  //hold data here after quering db
+.controller('MyGroupsController', function($scope, $rootScope, $window, Groups, GroupNamePersist, $state, $stateParams) {
+  
+  angular.forEach(['leaveGroup','addGroup'], function(value){
+    $rootScope.$on(value, function(){
+      $scope.userGroups();
+    });
+  });
+
   $scope.data = {
     usergroups: []
   };

@@ -6,7 +6,7 @@
       <input type="text" placeholder="Search for a group and tap it to join!" ng-model="search">
     </label>
   </div>
-  <div class="list card" ng-click="joinGroup(group.name)" ng-repeat="group in data.groups | filter:search" >
+  <div class="list card" ng-click="addGroup(group.name)" ng-repeat="group in data.groups | filter:search" >
     <div class="item item-icon-left"> <i class="icon ion-home"></i>{{ group.name }}
     </div>
   </div>

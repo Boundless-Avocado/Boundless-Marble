@@ -1,6 +1,6 @@
 angular.module('boundless.groupDetails', [])
 
-.controller('MyGroupDetailsController', function($scope, $ionicModal, $timeout, $window, Groups, GroupNamePersist, Message) {
+.controller('MyGroupDetailsController', function($scope, $ionicModal, $state, $timeout, $window, Groups, GroupNamePersist, Message) {
 
   $scope.data = {
     messageData: ''
@@ -59,7 +59,13 @@ angular.module('boundless.groupDetails', [])
       phone: phone,
       groupName: groupName
     };
-    Groups.leaveGroup(data);
+    Groups.leaveGroup(data)
+      .then(function(resp) {
+        if (resp) {
+          $scope.$emit('leaveGroup');
+          $state.go('app.mygroups');
+        }
+      });
   };
 
   $scope.users = $scope.getUsers($scope.getGroup());
