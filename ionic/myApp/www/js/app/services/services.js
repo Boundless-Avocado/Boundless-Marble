@@ -65,7 +65,7 @@ angular.module('boundless.services', [])
 	};
 		//new entry should added to the memberships join table. 
 		// 'data' is an object containing the groups information
-	var joinGroup = function(data) {
+	var addGroup = function(data) {
 		console.log(data.phone +' joined the group: ' + data.name);
 		return $http({
 			method: 'POST',
@@ -106,9 +106,7 @@ angular.module('boundless.services', [])
 				data: data
 		})
 		.then(function(resp) {
-			if (resp) {
-				$state.go('app.mygroups');
-			}
+			return resp;
 		});
 	};
 
@@ -129,7 +127,7 @@ angular.module('boundless.services', [])
 	return {
 		getGroups: getGroups,
 		createGroup: createGroup,
-		joinGroup: joinGroup,
+		addGroup: addGroup,
 		getUsers: getUsers,
 		userGroups: userGroups,
 		leaveGroup: leaveGroup,

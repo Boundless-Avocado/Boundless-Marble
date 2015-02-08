@@ -1,7 +1,7 @@
 <ion-view view-title="Nearby Groups">
   <ion-content>
     <div ng-repeat="group in data.nearbyGroups" >
-      <div class="list card" ng-click="joinGroup(group.name)">
+      <div class="list card" ng-click="addGroup(group.name)">
       <div class="item item-icon-left"> <i class="icon ion-home"></i>  
         <!-- <div class="item item-icon-left"> -->
           {{ group.name }}

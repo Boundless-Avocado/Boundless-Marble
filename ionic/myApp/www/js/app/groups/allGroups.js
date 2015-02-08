@@ -1,12 +1,12 @@
 angular.module('boundless.allGroups', [])
 
-.controller('AllGroupsController', function($scope, $window, $location, Groups) {
+.controller('AllGroupsController', function($scope, $window, $location, Groups, $state) {
   //hold data here after quering db
   $scope.data = {
     groups: Groups.data
   };
 
-  $scope.joinGroup = function(groupName) {
+  $scope.addGroup = function(groupName) {
     var phone = $window.localStorage.getItem('phone');
     console.log('group: ' + groupName);
     var data = {
@@ -15,9 +15,11 @@ angular.module('boundless.allGroups', [])
     };
     console.log(phone + ' joined the group: ' + groupName);
 
-    Groups.joinGroup(data)
-      .then(function() {
-        // $location.path('/groups');
+    Groups.addGroup(data)
+      .then(function(resp) {
+        if (resp) {
+          $scope.$emit('addGroup');
+        }
       })
       .catch(function(error) {
         console.log(error);
