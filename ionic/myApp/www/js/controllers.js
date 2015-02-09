@@ -3,9 +3,6 @@ angular.module('boundless.controllers', ['boundless.services'])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $location, Auth, $window, $state) {
   // Form data for the login modal
 
-  $scope.gomygroups = function() {
-    $state.go('app.mygroups');
-  };
 
   $scope.loginData = {};
   $scope.signupData = {};
@@ -22,8 +19,11 @@ angular.module('boundless.controllers', ['boundless.services'])
   }).then(function(modal) {
     $scope.modalSignUp = modal;
   });
+  
+  $scope.gomygroups = function() {
+    $state.go('app.mygroups');
+  };
 
-  // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modalLogIn.hide();
   };
@@ -32,7 +32,6 @@ angular.module('boundless.controllers', ['boundless.services'])
     $scope.modalSignUp.hide();
   };
 
-  // Open the login modal
   $scope.login = function() {
     $scope.modalLogIn.show();
   };
@@ -41,7 +40,6 @@ angular.module('boundless.controllers', ['boundless.services'])
     $scope.modalSignUp.show();
   };
 
-  // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
     Auth.signin($scope.loginData)
@@ -51,9 +49,8 @@ angular.module('boundless.controllers', ['boundless.services'])
 
     $timeout(function() {
       $scope.closeLogin();
-    }, 1000);
+    }, 500);
   };
-
 
   // TODO - change stat after successful signin to mygroups
   $scope.doSignUp = function() {
