@@ -3,7 +3,7 @@ var morgan      = require('morgan'), // used for logging incoming request
     helpers     = require('./helpers.js'); // our custom middleware
 var multiparty = require('multiparty');
 var path = require('path');
-var reloader = require('connect-livereload');
+// var reloader = require('connect-livereload');
 var jwt = require('./jwtAuth.js');
 
 module.exports = function (app, express) {
@@ -12,12 +12,12 @@ module.exports = function (app, express) {
   var groupRouter = express.Router();
   var clientRouter = express.Router();
 
-  app.use(reloader());
+  // app.use(reloader());
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
   // app.use(bodyParser.json({type: 'application/*+json'}));
   app.use(bodyParser.json());
-  app.use(reloader());
+  // app.use(reloader());
   app.use(express.static(path.join(__dirname, '/../ionic/myApp/www/')));
 
   app.use('/api/users', userRouter); // use user router for all user request

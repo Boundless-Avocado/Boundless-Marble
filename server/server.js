@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var reloader = require('connect-livereload');
 var sqldb = require('./db/index.js');
 var app = express();
 var port = process.env.PORT || 8080;
