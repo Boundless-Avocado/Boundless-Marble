@@ -49,7 +49,7 @@
     "multiparty": "^4.1.1",
     "mysql": "^2.5.4",
     "sendgrid": "1.5.0",
-    "sequelize": "^2.0.0-rc8",
+    "sequelize": "2.0.3",
     "sqlite3": "^3.0.4",
     "twilio": "^1.10.0"
   }
